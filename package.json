@@ -1,0 +1,59 @@
+{
+  "name": "ironstar-documentation-ui",
+  "description": "The UI and business logic layer for Ironstar documentation",
+  "version": "0.0.1",
+  "author": "Ironstar Team",
+  "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@mdx-js/mdx": "1.0.15",
+    "@mdx-js/react": "1.0.15",
+    "@mdx-js/tag": "0.20.3",
+    "antd": "3.16.6",
+    "gatsby": "2.3.32",
+    "gatsby-cli": "2.5.12",
+    "gatsby-image": "2.0.40",
+    "gatsby-mdx": "0.6.2",
+    "gatsby-plugin-manifest": "2.0.29",
+    "gatsby-plugin-offline": "2.0.25",
+    "gatsby-plugin-react-helmet": "3.0.12",
+    "gatsby-plugin-sharp": "2.0.35",
+    "gatsby-plugin-typescript": "^2.0.13",
+    "gatsby-remark-autolink-headers": "2.0.16",
+    "gatsby-remark-katex": "3.0.4",
+    "gatsby-remark-prismjs": "3.2.8",
+    "gatsby-source-filesystem": "2.0.32",
+    "gatsby-transformer-json": "2.1.11",
+    "gatsby-transformer-remark": "2.3.12",
+    "gatsby-transformer-sharp": "2.1.18",
+    "katex": "^0.10.1",
+    "prismjs": "1.16.0",
+    "prop-types": "^15.7.2",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-helmet": "5.2.0",
+    "react-responsive": "6.1.1",
+    "react-sizeme": "2.6.2",
+    "remark-parse": "^6.0.3"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "build": "gatsby build --prefix-paths",
+    "develop": "gatsby develop",
+    "dev": "yarn develop",
+    "start": "npm run develop",
+    "format": "prettier --write \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+  },
+  "devDependencies": {
+    "@types/node": "11.13.8",
+    "@types/react": "16.8.14",
+    "@types/react-dom": "16.8.4",
+    "@types/react-helmet": "5.0.8",
+    "gatsby-plugin-remove-trailing-slashes": "2.0.11",
+    "gh-pages": "2.0.1",
+    "prettier": "1.17.0"
+  }
+}
