@@ -55,5 +55,9 @@
     "gatsby-plugin-remove-trailing-slashes": "2.0.11",
     "gh-pages": "2.0.1",
     "prettier": "1.17.0"
+  },
+  "bin": {
+    "docs-start": "./bin/start",
+    "docs-develop": "./bin/develop"
   }
 }

@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const fs = require('fs')
+
+const { spawnCmd } = require('./helpers')
+
+const startDev = async () => {
+  try {
+    await spawnCmd({ cmd: 'yarn', args: ['start'] })
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+}
+
+startDev()
