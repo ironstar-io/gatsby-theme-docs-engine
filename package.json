@@ -1,5 +1,5 @@
 {
-  "name": "ironstar-documentation-ui",
+  "name": "@ironstar/docs-engine",
   "description": "The UI and business logic layer for Ironstar documentation",
   "version": "0.0.1",
   "author": "Ironstar Team",

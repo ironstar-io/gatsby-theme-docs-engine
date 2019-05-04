@@ -6,31 +6,31 @@
 
 // You can delete this file if you're not using it
 
-const DocumentationUICreatePages = require("@ironstar/documentation-ui/gatsby/createPages");
-const DocumentationUIOnCreateNode = require("@ironstar/documentation-ui/gatsby/onCreateNode");
+const DocumentationUICreatePages = require('@ironstar/docs-engine/gatsby/createPages')
+const DocumentationUIOnCreateNode = require('@ironstar/docs-engine/gatsby/onCreateNode')
 
 exports.createPages = async gatsby => {
   try {
-    await DocumentationUICreatePages(gatsby);
+    await DocumentationUICreatePages(gatsby)
 
     const {
       actions: { createPage },
-      graphql
-    } = gatsby;
+      graphql,
+    } = gatsby
 
     // Custom page creation logic can be added here
 
-    return;
+    return
   } catch (e) {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   }
-};
+}
 
 exports.onCreateNode = gatsby => {
-  DocumentationUIOnCreateNode(gatsby);
+  DocumentationUIOnCreateNode(gatsby)
 
-  const { node, getNode, actions } = gatsby;
+  const { node, getNode, actions } = gatsby
   // Add custom node creation logic here!
 
   // const { createNodeField } = actions
@@ -42,4 +42,4 @@ exports.onCreateNode = gatsby => {
   //     value: questionSlug,
   //   })
   // }
-};
+}

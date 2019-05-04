@@ -8,23 +8,20 @@ const startDev = async () => {
   try {
     await Promise.all([
       fs.copy(
-        './node_modules/@ironstar/documentation-ui/template/contents',
+        './node_modules/@ironstar/docs-engine/template/contents',
         './contents'
       ),
+      fs.copy('./node_modules/@ironstar/docs-engine/template/src', './src'),
       fs.copy(
-        './node_modules/@ironstar/documentation-ui/template/src',
-        './src'
-      ),
-      fs.copy(
-        './node_modules/@ironstar/documentation-ui/template/gatsby-config.js',
+        './node_modules/@ironstar/docs-engine/template/gatsby-config.js',
         './gatsby-config.js'
       ),
       fs.copy(
-        './node_modules/@ironstar/documentation-ui/template/gatsby-node.js',
+        './node_modules/@ironstar/docs-engine/template/gatsby-node.js',
         './gatsby-node.js'
       ),
       fs.copy(
-        './node_modules/@ironstar/documentation-ui/template/gatsby-browser.js',
+        './node_modules/@ironstar/docs-engine/template/gatsby-browser.js',
         './gatsby-browser.js'
       ),
     ])
