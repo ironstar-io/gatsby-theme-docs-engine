@@ -1,27 +1,31 @@
 import React from 'react'
-import { graphql } from 'gatsby'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-import { RootLayout as Layout } from '../Layout'
+import RootLayout from '../RootLayout'
 
-function PageTemplate({ data: { mdx } }: any) {
+interface PageTemplateProps {
+  pageContext: {
+    frontmatter: {
+      title: string
+      parents: string[]
+    }
+    body: string
+    sidebarTree: object
+    tree: object
+    dir: object
+  }
+}
+
+const PageTemplate: React.SFC<PageTemplateProps> = ({
+  pageContext: {
+    frontmatter: { title, parents },
+    body,
+    sidebarTree,
+  },
+}) => {
   return (
-    <Layout sidebarRoot={mdx.frontmatter.root}>
-      <MDXRenderer>{mdx.code.body}</MDXRenderer>
-    </Layout>
+    <RootLayout title={title} parents={parents} sidebarTree={sidebarTree}>
+      <MDXRenderer>{body}</MDXRenderer>
+    </RootLayout>
   )
 }
-export const pageQuery = graphql`
-  query BlogPostQuery($id: String) {
-    mdx(id: { eq: $id }) {
-      id
-      frontmatter {
-        title
-        root
-      }
-      code {
-        body
-      }
-    }
-  }
-`
 export default PageTemplate

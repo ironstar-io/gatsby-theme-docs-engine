@@ -9,13 +9,15 @@
     "@mdx-js/react": "1.0.15",
     "@mdx-js/tag": "0.20.3",
     "antd": "3.16.6",
-    "gatsby": "2.3.32",
+    "fs-extra": "^7.0.1",
     "gatsby-cli": "2.5.12",
     "gatsby-image": "2.0.40",
     "gatsby-mdx": "0.6.2",
     "gatsby-plugin-manifest": "2.0.29",
     "gatsby-plugin-offline": "2.0.25",
+    "gatsby-plugin-page-creator": "^2.0.12",
     "gatsby-plugin-react-helmet": "3.0.12",
+    "gatsby-plugin-remove-trailing-slashes": "^2.0.11",
     "gatsby-plugin-sharp": "2.0.35",
     "gatsby-plugin-typescript": "^2.0.13",
     "gatsby-remark-autolink-headers": "2.0.16",
@@ -52,12 +54,19 @@
     "@types/react": "16.8.14",
     "@types/react-dom": "16.8.4",
     "@types/react-helmet": "5.0.8",
-    "gatsby-plugin-remove-trailing-slashes": "2.0.11",
+    "gatsby": "2.4.x",
     "gh-pages": "2.0.1",
     "prettier": "1.17.0"
   },
+  "peerDependencies": {
+    "gatsby": "2.4.x"
+  },
   "bin": {
-    "docs-start": "./bin/start",
-    "docs-develop": "./bin/develop"
-  }
+    "docs-init": "./bin/init"
+  },
+  "files": [
+    "/gatsby",
+    "/src",
+    "/bin"
+  ]
 }

@@ -1,11 +1,9 @@
 {
   "include": ["./src/**/*"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
     "target": "esnext",
     "module": "commonjs",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "es2017", "es6"],
     // "allowJs": true,
     // "checkJs": true,
     "jsx": "react",
@@ -15,6 +13,5 @@
     "emitDecoratorMetadata": true,
     "noEmit": true,
     "skipLibCheck": true
-  },
-  "exclude": []
+  }
 }
