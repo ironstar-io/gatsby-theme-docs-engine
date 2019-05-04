@@ -12,6 +12,10 @@ const startDev = async () => {
         './contents'
       ),
       fs.copy(
+        './node_modules/@ironstar/documentation-ui/template/src',
+        './src'
+      ),
+      fs.copy(
         './node_modules/@ironstar/documentation-ui/template/gatsby-config.js',
         './gatsby-config.js'
       ),
@@ -23,7 +27,6 @@ const startDev = async () => {
         './node_modules/@ironstar/documentation-ui/template/gatsby-browser.js',
         './gatsby-browser.js'
       ),
-      fs.ensureDir(directory),
     ])
   } catch (err) {
     console.error(err)
