@@ -24,6 +24,10 @@ const startDev = async () => {
         './node_modules/@ironstar/docs-engine/template/gatsby-browser.js',
         './gatsby-browser.js'
       ),
+      fs.copy(
+        './node_modules/@ironstar/docs-engine/template/dengine-config.js',
+        './dengine-config.js'
+      ),
     ])
   } catch (err) {
     console.error(err)

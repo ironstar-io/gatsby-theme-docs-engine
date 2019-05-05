@@ -1,4 +1,4 @@
-const baseConfig = require('@ironstar/docs-engine/gatsby/gatsby-config.js')
+const baseConfig = require('@ironstar/docs-engine/gatsby-config.js')
 const plugins = baseConfig.plugins.push({
   // Optionally add any additional gatsby plugin configuration here
 })
