@@ -29,7 +29,7 @@ footer, header, hgroup, menu, nav, section
 	display: block;
 
 body
-	font-family: sans-serif
+	font-family: "gothamroundedbook", sans-serif
 	line-height: 1.5em
 	font-size: 16px
 	-webkit-overflow-scrolling: touch
@@ -58,5 +58,25 @@ table
 	border-collapse: collapse;
 	border-spacing: 0;
 
+// /* OVERRIDES for Sitecore 8 wrapping HTML */
+.o-main, .o-section
+	height: 100%
+
 @import "./fonts"
 
+// Content starts here
+body
+	color: $basefont-colour
+
+main
+	margin-top: $menu-height
+
+section
+	position: relative
+	max-width: 1440px
+	margin: 0 auto
+
+.bg
+
+.bg.blue
+	background-color: #DDE5ED

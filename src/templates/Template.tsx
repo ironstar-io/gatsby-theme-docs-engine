@@ -20,10 +20,19 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
     frontmatter: { title, parents },
     body,
     sidebarTree,
+    previous,
+    next,
   },
 }) => {
+  console.log({ previous, next })
   return (
-    <RootLayout title={title} parents={parents} sidebarTree={sidebarTree}>
+    <RootLayout
+      title={title}
+      parents={parents}
+      sidebarTree={sidebarTree}
+      previous={previous}
+      next={next}
+    >
       <MDXRenderer>{body}</MDXRenderer>
     </RootLayout>
   )

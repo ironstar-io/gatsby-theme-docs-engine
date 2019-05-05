@@ -4,9 +4,17 @@ import Header from './components/Header'
 import { Layout } from 'antd'
 import { SidebarContents } from './components/SidebarContents'
 import { TableOfContents } from './components/TableOfContents'
+import PreviousNext from './components/PreviousNext'
 const { Sider, Content } = Layout
 
-const RootLayout = ({ children, sidebarTree, title, parents }: any) => {
+const RootLayout = ({
+  children,
+  sidebarTree,
+  title,
+  parents,
+  previous,
+  next,
+}: any) => {
   console.log({ sidebarTree })
   return (
     <div
@@ -45,6 +53,7 @@ const RootLayout = ({ children, sidebarTree, title, parents }: any) => {
             }}
           >
             {children}
+            <PreviousNext previous={previous} next={next} />
           </Content>
         </Layout>
         <TableOfContents />
