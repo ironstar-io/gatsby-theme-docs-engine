@@ -7,6 +7,7 @@ import { TableOfContents } from './components/TableOfContents'
 const { Sider, Content } = Layout
 
 const RootLayout = ({ children, sidebarTree, title, parents }: any) => {
+  console.log({ sidebarTree })
   return (
     <div
       style={{

@@ -1,6 +1,8 @@
 const replacePath = require('./utils')
 const path = require('path')
 
+const dengineConfig = require('../dengine-config')
+
 const buildParents = list => {
   const parentsFull = list.reduce((acc, curr) => {
     if (Array.isArray(curr.parents)) {
@@ -13,11 +15,55 @@ const buildParents = list => {
 
   return parentsReduced.reduce(
     (acc, curr) => {
-      acc[curr] = []
+      acc.push({ parent: curr, items: [] })
       return acc
     },
-    { root: [] }
+    [{ parent: 'root', items: [] }]
   )
+}
+
+const constructUnorderedTree = ({ list, parentMap }) => {
+  return list.reduce((acc, curr) => {
+    if (Array.isArray(curr.parents)) {
+      for (parent of curr.parents) {
+        for (a of acc) {
+          if (a.parent === parent) {
+            a.items.push(curr)
+          }
+        }
+      }
+    } else {
+      for (a of acc) {
+        if (a.parent === 'root') {
+          a.items.push(curr)
+        }
+      }
+    }
+
+    return acc
+  }, parentMap)
+}
+
+const orderTree = unorderedTree => {
+  if (
+    !dengineConfig.documentationOrder ||
+    !Array.isArray(dengineConfig.documentationOrder)
+  ) {
+    console.warning(
+      'Has `documentationOrder` been specified in your dengine-config.js file?'
+    )
+
+    return []
+  }
+
+  return dengineConfig.documentationOrder.map(doco => {
+    const branch = unorderedTree.find(ot => doco.parent === ot.parent)
+    const twigs = doco.items.map(it => {
+      return branch.items.find(bri => it === bri.title)
+    })
+
+    return { ...branch, items: twigs }
+  })
 }
 
 const convertToTree = data => {
@@ -40,26 +86,12 @@ const convertToTree = data => {
 
   const parentMap = buildParents(list)
 
-  return constructTree({ list, parentMap })
+  const unorderedTree = constructUnorderedTree({ list, parentMap })
+
+  return orderTree(unorderedTree)
 }
 
-const constructTree = ({ list, parentMap }) => {
-  return list.reduce((acc, curr) => {
-    if (Array.isArray(curr.parents)) {
-      for (parent of curr.parents) {
-        acc[parent].push(curr)
-      }
-    } else {
-      acc['root'].push(curr)
-    }
-
-    return acc
-  }, parentMap)
-}
-
-module.exports = exports.createPages = async ({ actions, graphql }) => {
-  const { createPage } = actions
-
+const buildDocsPages = async ({ createPage, graphql }) => {
   const Template = path.resolve(`${__dirname}/../src/templates/Template.tsx`)
   // sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000
   const result = await graphql(`
@@ -118,5 +150,19 @@ module.exports = exports.createPages = async ({ actions, graphql }) => {
       component: Template,
       context: { id, body, frontmatter, sidebarTree }, // additional data can be passed via context
     })
+  }
+}
+
+module.exports = exports.createPages = async ({
+  actions: { createPage },
+  graphql,
+}) => {
+  try {
+    await Promise.all([buildDocsPages({ createPage, graphql })])
+
+    return
+  } catch (e) {
+    console.error(e)
+    process.exit(1)
   }
 }

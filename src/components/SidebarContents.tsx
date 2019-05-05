@@ -24,9 +24,9 @@ export const SidebarContents = ({ tree, parents }: Props) => {
       defaultOpenKeys={parents}
       selectedKeys={keys}
     >
-      {Object.keys(tree).map(branch => {
-        if (branch === 'root') {
-          return tree[branch].map(twig => {
+      {tree.map(branch => {
+        if (branch.parent === 'root') {
+          return branch.items.map(twig => {
             return (
               <Menu.Item key={twig.path}>
                 <Link to={twig.path}>
@@ -39,10 +39,10 @@ export const SidebarContents = ({ tree, parents }: Props) => {
 
         return (
           <SubMenu
-            key={branch}
-            title={<span style={{ fontWeight: 900 }}>{branch}</span>}
+            key={branch.parent}
+            title={<span style={{ fontWeight: 900 }}>{branch.parent}</span>}
           >
-            {tree[branch].map(twig => {
+            {branch.items.map(twig => {
               return (
                 <Menu.Item key={twig.path}>
                   <Link to={twig.path}>

@@ -1,7 +1,7 @@
 ---
 title: Introduction
 root: '/docs'
-parents: ['About Tokaido']
+parents: ['root']
 ---
 
 # Introduction
