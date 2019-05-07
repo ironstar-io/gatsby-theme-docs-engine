@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const inquirer = require('inquirer')
+const slugify = require('slugify')
+const { argv } = require('yargs')
+const fs = require('fs-extra')
+
+const getVersionName = async () => {
+  console.log('Note that version names will be slugified')
+
+  if (argv._ && argv._[0]) {
+    return slugify(argv._[0])
+  }
+
+  const { versionName } = await inquirer.prompt({
+    type: 'input',
+    name: 'versionName',
+    message: 'What version name are you creating?',
+  })
+
+  return slugify(versionName)
+}
+
+const newVersion = async () => {
+  try {
+    const versionName = await getVersionName()
+    await Promise.all([
+      fs.copy('./contents/docs', `./contents/${versionName}/docs`),
+      fs.copy('./contents/blog', `./contents/${versionName}/blog`),
+    ])
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+}
+
+newVersion()
