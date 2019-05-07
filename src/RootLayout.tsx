@@ -4,6 +4,7 @@ import Header from './components/Header'
 import { Layout } from 'antd'
 import { SidebarContents } from './components/SidebarContents'
 import { TableOfContents } from './components/TableOfContents'
+import Footer from './components/Footer'
 import PreviousNext from './components/PreviousNext'
 const { Sider, Content } = Layout
 
@@ -61,6 +62,7 @@ const RootLayout = ({
       <Layout>
         <Sider width={200} style={{ background: '#fff', height: '100%' }} />
       </Layout>
+      <Footer />
     </div>
   )
 }

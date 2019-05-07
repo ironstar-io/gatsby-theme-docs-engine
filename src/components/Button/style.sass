@@ -1,0 +1,63 @@
+@import '../../base'
+
+$button-transition-duration: 200ms
+
+.button
+  button
+    cursor: pointer
+    font-size: 1rem
+    border-radius: 5px
+    padding: 10px
+    color: #fff
+    min-width: 200px
+    font-family: sans-serif
+    transition: color, border-color
+    transition-duration: $button-transition-duration
+    border: 1px solid $ironstar-blue
+    background-color: $ironstar-blue
+    opacity: 0.9
+
+  &.icon
+    button
+      border-radius: 100%
+      padding: 0
+
+    &:hover
+      opacity: 0.8
+
+    &:focus
+      outline: none
+
+  &.invert-color
+    button
+      background: transparent
+      color: $ironstar-blue
+      transition: color, border-color
+      transition-duration: $button-transition-duration
+
+      &:hover
+        background-color: rgba(63, 139, 253, 0.05)
+
+    &.no-op
+
+      &:hover
+        background-color: transparent
+
+  &.no-op
+    button
+      cursor: default
+
+      &:hover
+        background-color: white
+
+      &:focus
+        outline: none
+
+  &.theme-dark
+    button
+      transition: color, border-color
+      transition-duration: $button-transition-duration
+      color: $ironstar-blue
+      border: 2px solid $ironstar-blue
+      span
+        background: $ironstar-blue
