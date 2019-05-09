@@ -1,6 +1,6 @@
 import React from 'react'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-import RootLayout from '../RootLayout'
+import DocumentationLayout from '../layout/Documentation'
 
 interface PageTemplateProps {
   pageContext: {
@@ -18,23 +18,25 @@ interface PageTemplateProps {
 const PageTemplate: React.SFC<PageTemplateProps> = ({
   pageContext: {
     frontmatter: { title, parents },
+    siteTitle,
     body,
     sidebarTree,
     previous,
     next,
   },
 }) => {
-  console.log({ previous, next })
+  console.log('rerender')
   return (
-    <RootLayout
-      title={title}
+    <DocumentationLayout
+      siteTitle={siteTitle}
+      pageTitle={title}
       parents={parents}
       sidebarTree={sidebarTree}
       previous={previous}
       next={next}
     >
       <MDXRenderer>{body}</MDXRenderer>
-    </RootLayout>
+    </DocumentationLayout>
   )
 }
 export default PageTemplate

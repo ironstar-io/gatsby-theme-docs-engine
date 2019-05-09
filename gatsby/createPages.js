@@ -1,10 +1,10 @@
 const replacePath = require('./utils')
 const path = require('path')
+const dengineConfig = require('../dengine-config')
 
 const { convertToTree, pullPreviousNext } = require('./pageHelpers')
 
-const buildDocsPages = async ({ createPage, graphql }) => {
-  const Template = path.resolve(`${__dirname}/../src/templates/Template.tsx`)
+const basePageQuery = async graphql => {
   const result = await graphql(`
     {
       site {
@@ -16,6 +16,7 @@ const buildDocsPages = async ({ createPage, graphql }) => {
         edges {
           node {
             id
+            fileAbsolutePath
             fields {
               slug
             }
@@ -37,14 +38,68 @@ const buildDocsPages = async ({ createPage, graphql }) => {
     throw new Error(result.errors)
   }
 
+  return result
+}
+
+const buildVersionPage = async ({
+  createPage,
+  createRedirect,
+  basePageData,
+}) => {
+  const Template = path.resolve(
+    `${__dirname}/../src/templates/Version/index.tsx`
+  )
+
   const {
     data: {
       allMdx: { edges },
     },
-  } = result
+  } = basePageData
 
-  console.log(JSON.stringify(edges))
-  const sidebarTree = convertToTree(result.data.allMdx.edges)
+  const versionArray = edges.map(({ node: { fileAbsolutePath } }) =>
+    fileAbsolutePath
+      .split('/__contents')[1]
+      .split('/docs')[0]
+      .replace('/', '')
+  )
+
+  const availableVersions = [...new Set(versionArray)]
+
+  for await (version of availableVersions) {
+    await createRedirect({
+      fromPath: `/${version}`,
+      toPath: `/${version}/docs/introduction`,
+      redirectInBrowser: true,
+      isPermanent: true,
+    })
+  }
+
+  await createRedirect({
+    fromPath: `/version`,
+    toPath: `/versions`,
+    redirectInBrowser: true,
+    isPermanent: true,
+  })
+
+  await createPage({
+    path: '/versions',
+    component: Template,
+    context: { siteTitle: dengineConfig.title, availableVersions },
+  })
+}
+
+const buildDocsPages = async ({ createPage, basePageData }) => {
+  const Template = path.resolve(
+    `${__dirname}/../src/templates/Documentation.tsx`
+  )
+
+  const {
+    data: {
+      allMdx: { edges },
+    },
+  } = basePageData
+
+  const sidebarTree = convertToTree(edges)
 
   for await (edge of edges) {
     const {
@@ -61,17 +116,29 @@ const buildDocsPages = async ({ createPage, graphql }) => {
     createPage({
       path: replacePath(slug),
       component: Template,
-      context: { id, body, frontmatter, sidebarTree, previous, next }, // additional data can be passed via context
+      context: {
+        siteTitle: dengineConfig.title,
+        id,
+        body,
+        frontmatter,
+        sidebarTree,
+        previous,
+        next,
+      },
     })
   }
 }
 
 module.exports = exports.createPages = async ({
-  actions: { createPage },
+  actions: { createPage, createRedirect },
   graphql,
 }) => {
   try {
-    await Promise.all([buildDocsPages({ createPage, graphql })])
+    const basePageData = await basePageQuery(graphql)
+    await Promise.all([
+      buildDocsPages({ createPage, basePageData }),
+      buildVersionPage({ createPage, createRedirect, basePageData }),
+    ])
 
     return
   } catch (e) {

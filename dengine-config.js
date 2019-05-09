@@ -1,5 +1,5 @@
 const dengineConfig = {
-  title: 'Test Site', // Title for your website.
+  title: 'Ironstar Documentation Engine', // Title for your website.
   tagline: 'A website for testing',
   url: 'https://docs.tokaido.io', // Your website URL
   // Used for publishing and more

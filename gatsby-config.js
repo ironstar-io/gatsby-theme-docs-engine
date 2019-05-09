@@ -30,7 +30,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `contents`,
-        path: `${__dirname}/contents`,
+        path: `${__dirname}/__contents`,
       },
     },
     'gatsby-transformer-sharp',
@@ -65,7 +65,7 @@ module.exports = {
       resolve: `gatsby-mdx`,
       options: {
         defaultLayouts: {
-          default: require.resolve('./src/RootLayout.tsx'),
+          default: require.resolve('./src/layout/Documentation.tsx'),
         },
         extensions: ['.mdx', '.md'],
         remarkPlugins: [require('gatsby-transformer-remark')],
