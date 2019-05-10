@@ -17,7 +17,7 @@ const Header: React.SFC<Props> = ({ siteTitle, version }) => {
         <Menu.Item className="version-button">
           <Link to="/versions">
             <div>Version</div>
-            {version ? <div>{version}</div> : null}
+            <div>{version || 'latest'}</div>
           </Link>
         </Menu.Item>
         <Menu.Item>

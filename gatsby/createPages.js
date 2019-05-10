@@ -4,6 +4,12 @@ const dengineConfig = require('../dengine-config')
 
 const { convertToTree, pullPreviousNext } = require('./pageHelpers')
 
+const stripVersion = str =>
+  str
+    .split('/__contents')[1]
+    .split('/docs')[0]
+    .replace('/', '')
+
 const basePageQuery = async graphql => {
   const result = await graphql(`
     {
@@ -57,10 +63,7 @@ const buildVersionPage = async ({
   } = basePageData
 
   const versionArray = edges.map(({ node: { fileAbsolutePath } }) =>
-    fileAbsolutePath
-      .split('/__contents')[1]
-      .split('/docs')[0]
-      .replace('/', '')
+    stripVersion(fileAbsolutePath)
   )
 
   const availableVersions = [...new Set(versionArray)]
@@ -108,10 +111,14 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
         fields: { slug },
         code: { body },
         frontmatter,
+        fileAbsolutePath,
       },
     } = edge
 
     const { previous, next } = pullPreviousNext({ sidebarTree, frontmatter })
+
+    const version = stripVersion(fileAbsolutePath)
+    console.log({ fileAbsolutePath, version })
 
     createPage({
       path: replacePath(slug),
@@ -120,6 +127,7 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
         siteTitle: dengineConfig.title,
         id,
         body,
+        version,
         frontmatter,
         sidebarTree,
         previous,

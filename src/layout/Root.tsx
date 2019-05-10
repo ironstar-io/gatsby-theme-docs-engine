@@ -24,7 +24,8 @@ const RootLayout = ({ children, pageTitle, siteTitle, version }: any) => {
       >
         <html lang="en" />
       </Helmet>
-      <Header siteTitle={siteTitle} version="latest" />
+
+      <Header siteTitle={siteTitle} version={version} />
 
       <div
         style={{
@@ -36,9 +37,11 @@ const RootLayout = ({ children, pageTitle, siteTitle, version }: any) => {
       >
         {children}
       </div>
+
       <Layout>
         <Sider width={200} style={{ background: '#fff', height: '100%' }} />
       </Layout>
+
       <Footer />
     </div>
   )

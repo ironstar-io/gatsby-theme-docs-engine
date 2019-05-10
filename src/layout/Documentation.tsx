@@ -11,13 +11,14 @@ const DocumentationLayout = ({
   sidebarTree,
   siteTitle,
   pageTitle,
+  version,
   parents,
   previous,
   next,
 }: any) => {
-  console.log({ sidebarTree })
+  console.log({ version })
   return (
-    <RootLayout siteTitle={siteTitle} pageTitle={pageTitle}>
+    <RootLayout siteTitle={siteTitle} pageTitle={pageTitle} version={version}>
       <SidebarContents tree={sidebarTree} parents={parents} />
       <Layout className="content-body">
         <Content

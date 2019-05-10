@@ -23,6 +23,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
     sidebarTree,
     previous,
     next,
+    version,
   },
 }) => {
   console.log('rerender')
@@ -30,6 +31,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
     <DocumentationLayout
       siteTitle={siteTitle}
       pageTitle={title}
+      version={version}
       parents={parents}
       sidebarTree={sidebarTree}
       previous={previous}
