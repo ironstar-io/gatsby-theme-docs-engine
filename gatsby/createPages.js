@@ -118,7 +118,6 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
     const { previous, next } = pullPreviousNext({ sidebarTree, frontmatter })
 
     const version = stripVersion(fileAbsolutePath)
-    console.log({ fileAbsolutePath, version })
 
     createPage({
       path: replacePath(slug),

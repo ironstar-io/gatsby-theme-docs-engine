@@ -6,6 +6,8 @@ import { TableOfContents } from '../components/TableOfContents'
 import PreviousNext from '../components/PreviousNext'
 const { Content } = Layout
 
+import './Documentation.sass'
+
 const DocumentationLayout = ({
   children,
   sidebarTree,
@@ -20,17 +22,9 @@ const DocumentationLayout = ({
   return (
     <RootLayout siteTitle={siteTitle} pageTitle={pageTitle} version={version}>
       <SidebarContents tree={sidebarTree} parents={parents} />
-      <Layout className="content-body">
-        <Content
-          style={{
-            background: '#fff',
-            padding: 24,
-            margin: 0,
-          }}
-        >
-          {children}
-          <PreviousNext previous={previous} next={next} />
-        </Content>
+      <Layout>
+        <Content className="content-body">{children}</Content>
+        <PreviousNext previous={previous} next={next} />
       </Layout>
       <TableOfContents />
     </RootLayout>
