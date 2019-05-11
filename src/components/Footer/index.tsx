@@ -5,15 +5,17 @@ import SiteContext from '../../context/site'
 
 import './styles.sass'
 
+import { DengineConfig } from '../../types'
+
 const defaultStyling = {
   backgroundImage:
     'linear-gradient(90deg,#3f8bfd,#483bec),linear-gradient(90deg,#483bec,#483bec)',
   color: 'white',
 }
 
-const Footer = () => (
+const Footer: React.SFC<{}> = () => (
   <SiteContext.Consumer>
-    {({ footer = {} }) => {
+    {({ footer = {} }: DengineConfig) => {
       const footerStyling = Object.assign(
         {},
         defaultStyling,

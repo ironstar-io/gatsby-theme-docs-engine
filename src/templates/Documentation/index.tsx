@@ -1,31 +1,30 @@
 import React from 'react'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-import { Layout } from 'antd'
 import RootLayout from '../../layout/Root'
-import { SidebarContents } from '../../components/SidebarContents'
+import SidebarContents from '../../components/SidebarContents'
 import { TableOfContents } from '../../components/TableOfContents'
 import PreviousNext from '../../components/PreviousNext'
-const { Content } = Layout
 
 import './style.sass'
 
-import { DengineConfig } from '../../types'
+import { DengineConfig, DocsMeta } from '../../types'
 
-interface PageTemplateProps {
+interface DocumentationPageTemplateProps {
   pageContext: {
+    dengineConfig: DengineConfig
+    previous: DocsMeta
+    next: DocsMeta
     frontmatter: {
       title: string
       parents: string[]
     }
     body: string
     sidebarTree: object
-    tree: object
-    dir: object
-    dengineConfig: DengineConfig
+    version: string
   }
 }
 
-const PageTemplate: React.SFC<PageTemplateProps> = ({
+const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   pageContext: {
     frontmatter: { title, parents },
     dengineConfig,
@@ -62,4 +61,4 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
     </RootLayout>
   )
 }
-export default PageTemplate
+export default DocumentationPageTemplate

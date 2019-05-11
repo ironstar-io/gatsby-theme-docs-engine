@@ -5,7 +5,21 @@ import Footer from '../components/Footer'
 
 import SiteContext from '../context/site'
 
-const RootLayout = ({ children, pageTitle, dengineConfig, version }: any) => {
+import { DengineConfig } from '../types'
+
+interface RootLayoutProps {
+  dengineConfig: DengineConfig
+  pageTitle: string
+  version: string
+  children: any
+}
+
+const RootLayout: React.SFC<RootLayoutProps> = ({
+  dengineConfig,
+  pageTitle,
+  version,
+  children,
+}: any) => {
   return (
     <SiteContext.Provider value={{ ...dengineConfig, version }}>
       <div

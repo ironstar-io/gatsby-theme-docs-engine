@@ -2,16 +2,27 @@ import React from 'react'
 import { Link } from 'gatsby'
 import Menu from 'antd/lib/menu'
 import 'antd/lib/menu/style/css'
-import { pathPrefix } from '../../gatsby-config'
+import { pathPrefix } from '../../../gatsby-config'
 
 const SubMenu = Menu.SubMenu
 
-interface Props {
-  tree: any
+interface SidebarContentsProps {
+  tree: Array<{
+    items: Array<{
+      key: string
+      parents: string[]
+      path: string
+      title: string
+    }>
+    parent: string
+  }>
   parents: string[]
 }
 
-export const SidebarContents = ({ tree, parents }: Props) => {
+const SidebarContents: React.SFC<SidebarContentsProps> = ({
+  tree,
+  parents,
+}) => {
   const keys =
     typeof window !== 'undefined'
       ? [pathPrefix + window.location.pathname]
@@ -57,3 +68,5 @@ export const SidebarContents = ({ tree, parents }: Props) => {
     </Menu>
   )
 }
+
+export default SidebarContents

@@ -4,17 +4,11 @@ import Button from '../Button'
 
 import './style.sass'
 
+import { DocsMeta } from '../../types'
+
 interface Props {
-  previous: {
-    parents: string[]
-    title: string
-    path: string
-  }
-  next: {
-    parents: string[]
-    title: string
-    path: string
-  }
+  previous?: DocsMeta
+  next?: DocsMeta
 }
 
 const PreviousNext = ({ previous = {}, next = {} }: Props) => {

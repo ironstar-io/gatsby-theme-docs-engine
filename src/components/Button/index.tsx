@@ -4,14 +4,14 @@ import { Link } from 'gatsby'
 import './style.sass'
 
 interface ButtonProps {
-  linkRef: string
-  theme: string
-  invertColor: boolean
-  icon: boolean
+  linkRef?: string
+  theme?: string
+  invertColor?: boolean
+  icon?: boolean
   children: any
   ariaLabel: string
-  classname: string
-  clickFn: () => {}
+  classname?: string
+  clickFn?: () => {}
 }
 
 const Button: React.SFC<ButtonProps> = ({

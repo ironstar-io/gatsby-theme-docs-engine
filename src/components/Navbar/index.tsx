@@ -4,6 +4,8 @@ import SiteContext from '../../context/site'
 
 import './style.sass'
 
+import { DengineConfig } from '../../types'
+
 const defaultStyling = {
   backgroundImage:
     'linear-gradient(90deg,#3f8bfd,#483bec),linear-gradient(90deg,#483bec,#483bec)',
@@ -13,7 +15,7 @@ const defaultStyling = {
 const Navbar: React.SFC<{}> = () => {
   return (
     <SiteContext.Consumer>
-      {({ header = {}, name, version }) => {
+      {({ header = {}, name, version }: DengineConfig) => {
         const headerStyling = Object.assign(
           {},
           defaultStyling,

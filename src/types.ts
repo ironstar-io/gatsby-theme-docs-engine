@@ -52,3 +52,10 @@ export interface DengineConfig {
     }>
   }
 }
+
+export interface DocsMeta {
+  key: string
+  parents: string[]
+  path: string
+  title: string
+}

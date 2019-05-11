@@ -8,14 +8,14 @@ import './style.sass'
 
 import { DengineConfig } from '../../types'
 
-interface PageTemplateProps {
+interface VersionPageTemplateProps {
   pageContext: {
-    availableVersions: string[]
     dengineConfig: DengineConfig
+    availableVersions: string[]
   }
 }
 
-const PageTemplate: React.SFC<PageTemplateProps> = ({
+const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
   pageContext: { dengineConfig, availableVersions },
 }) => {
   const { latestVersion } = dengineConfig
@@ -49,4 +49,4 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
     </RootLayout>
   )
 }
-export default PageTemplate
+export default VersionPageTemplate
