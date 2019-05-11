@@ -1,5 +1,5 @@
 const dengineConfig = {
-  title: 'Ironstar Documentation Engine', // Title for your website.
+  name: 'Ironstar Documentation Engine', // Title for your website.
   tagline: 'A website for testing',
   url: 'https://docs.tokaido.io', // Your website URL
   // Used for publishing and more
@@ -25,14 +25,33 @@ const dengineConfig = {
     { page: 'help', label: 'Help' },
     { blog: true, label: 'Blog' },
   ],
+  footer: {
+    links: [
+      { label: 'Ironstar', url: 'https://ironstar.io' },
+      { label: 'Tokaido', url: 'https://tokaido.io' },
+    ],
+    phone: '+61 455 555 555',
+    email: 'hello@ironstar.io',
+    // HTML OK here
+    addressBlock:
+      'Level 2, <br />Riverside Quay 1 <br />Southbank Boulevard <br />Southbank VIC 3006',
+    socials: [
+      { label: 'GitHub', url: 'http://github.com/ironstar-io' },
+      {
+        label: 'YouTube',
+        url: 'https://www.youtube.com/channel/UCZSfGmHSFLRqBRVIaxH9QXw',
+      },
+      { label: 'Twitter', url: 'http://twitter.com/ironstar-io' },
+    ],
+    copyright: `Copyright © ${new Date().getFullYear()} Ironstar Pty Ltd`,
+  },
 
   /* path to images for header/footer */
   headerIcon: 'img/favicon.ico',
   footerIcon: 'img/favicon.ico',
   favicon: 'img/favicon.ico',
-
+  latestVersion: '1.8.0',
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Ironstar Pty Ltd`,
 }
 
 module.exports = dengineConfig

@@ -87,13 +87,13 @@ const buildVersionPage = async ({
   await createPage({
     path: '/versions',
     component: Template,
-    context: { siteTitle: dengineConfig.title, availableVersions },
+    context: { dengineConfig, availableVersions },
   })
 }
 
 const buildDocsPages = async ({ createPage, basePageData }) => {
   const Template = path.resolve(
-    `${__dirname}/../src/templates/Documentation.tsx`
+    `${__dirname}/../src/templates/Documentation/index.tsx`
   )
 
   const {
@@ -123,7 +123,7 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
       path: replacePath(slug),
       component: Template,
       context: {
-        siteTitle: dengineConfig.title,
+        dengineConfig,
         id,
         body,
         version,

@@ -6,18 +6,25 @@ const { Content } = Layout
 
 import './style.sass'
 
+import { DengineConfig } from '../../types'
+
 interface PageTemplateProps {
   pageContext: {
     availableVersions: string[]
+    dengineConfig: DengineConfig
   }
 }
 
 const PageTemplate: React.SFC<PageTemplateProps> = ({
-  pageContext: { siteTitle, availableVersions },
+  pageContext: { dengineConfig, availableVersions },
 }) => {
+  const { latestVersion } = dengineConfig
   return (
-    <RootLayout siteTitle={siteTitle} pageTitle="Available Versions">
-      <div />
+    <RootLayout
+      pageTitle="Available Versions"
+      dengineConfig={dengineConfig}
+      version="N/A"
+    >
       <Layout className="version-page">
         <Content
           style={{
@@ -26,15 +33,17 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
             margin: 0,
           }}
         >
-          <h1>Available Versions</h1>
           <div>
-            <Link to={`/docs/introduction`}>Latest</Link>
-          </div>
-          {availableVersions.map(version => (
+            <h1>Available Versions</h1>
             <div>
-              <Link to={`/${version}`}>{version}</Link>
+              <Link to={`/docs/introduction`}>Latest ({latestVersion})</Link>
             </div>
-          ))}
+            {availableVersions.map(version => (
+              <div key={version}>
+                <Link to={`/${version}`}>{version}</Link>
+              </div>
+            ))}
+          </div>
         </Content>
       </Layout>
     </RootLayout>

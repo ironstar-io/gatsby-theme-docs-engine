@@ -1,46 +1,36 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import Header from '../components/Header'
-import { Layout } from 'antd'
 import Footer from '../components/Footer'
 
-const { Sider } = Layout
+import SiteContext from '../context/site'
 
-const RootLayout = ({ children, pageTitle, siteTitle, version }: any) => {
+const RootLayout = ({ children, pageTitle, dengineConfig, version }: any) => {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateRows: 'auto 1fr',
-        height: '100vh',
-      }}
-    >
-      <Helmet
-        title={`${pageTitle} | Ironstar Documentation`}
-        meta={[
-          { name: 'description', content: 'Tokaido Documentation' },
-          { name: 'keywords', content: 'Drupal, Hosting' },
-        ]}
-      >
-        <html lang="en" />
-      </Helmet>
-      <Header siteTitle={siteTitle} version="latest" />
-
+    <SiteContext.Provider value={{ ...dengineConfig, version }}>
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto',
-          height: '100%',
+          gridTemplateRows: 'auto 1fr',
+          height: '100vh',
         }}
-        className="main-wrapper"
       >
+        <Helmet
+          title={`${pageTitle} | Ironstar Documentation`}
+          meta={[
+            { name: 'description', content: 'Tokaido Documentation' },
+            { name: 'keywords', content: 'Drupal, Hosting' },
+          ]}
+        >
+          <html lang="en" />
+        </Helmet>
+        <Header />
+
         {children}
+
+        <Footer />
       </div>
-      <Layout>
-        <Sider width={200} style={{ background: '#fff', height: '100%' }} />
-      </Layout>
-      <Footer />
-    </div>
+    </SiteContext.Provider>
   )
 }
 

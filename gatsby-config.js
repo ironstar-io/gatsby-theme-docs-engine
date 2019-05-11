@@ -65,7 +65,7 @@ module.exports = {
       resolve: `gatsby-mdx`,
       options: {
         defaultLayouts: {
-          default: require.resolve('./src/layout/Documentation.tsx'),
+          default: require.resolve('./src/templates/Documentation/index.tsx'),
         },
         extensions: ['.mdx', '.md'],
         remarkPlugins: [require('gatsby-transformer-remark')],
