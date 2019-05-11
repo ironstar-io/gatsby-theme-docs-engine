@@ -43,24 +43,21 @@ const PageTemplate: React.SFC<PageTemplateProps> = ({
       version={version}
       className="documentation-page"
     >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto',
-          height: '100%',
-        }}
-        className="documentation-page main-wrapper"
-      >
-        <SidebarContents tree={sidebarTree} parents={parents} />
+      <div className="documentation-page main-wrapper">
+        <div>
+          <SidebarContents tree={sidebarTree} parents={parents} />
+        </div>
 
-        <Layout className="content-wrapper">
-          <Content className="content-body">
+        <div className="content-wrapper">
+          <div className="content-body">
             <MDXRenderer>{body}</MDXRenderer>
-          </Content>
+          </div>
           <PreviousNext previous={previous} next={next} />
-        </Layout>
+        </div>
 
-        <TableOfContents />
+        <div>
+          <TableOfContents />
+        </div>
       </div>
     </RootLayout>
   )

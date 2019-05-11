@@ -20,11 +20,17 @@ const dengineConfig = {
     },
   ],
   // For no header links in the top nav bar -> headerLinks: [],
-  headerLinks: [
-    { doc: 'about/introduction', label: 'Docs' },
-    { page: 'help', label: 'Help' },
-    { blog: true, label: 'Blog' },
-  ],
+  header: {
+    style: {
+      backgroundImage:
+        'linear-gradient(90deg,#3f8bfd,#483bec),linear-gradient(90deg,#483bec,#483bec)',
+      color: 'white',
+    },
+    links: [
+      { internalRef: 'docs/introduction', label: 'Docs' },
+      { externalRef: 'https://github.com/ironstar-io', label: 'GitHub' },
+    ],
+  },
   footer: {
     links: [
       { label: 'Ironstar', url: 'https://ironstar.io' },
@@ -43,6 +49,7 @@ const dengineConfig = {
       },
       { label: 'Twitter', url: 'http://twitter.com/ironstar-io' },
     ],
+    // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
     copyright: `Copyright © ${new Date().getFullYear()} Ironstar Pty Ltd`,
   },
 
@@ -51,7 +58,6 @@ const dengineConfig = {
   footerIcon: 'img/favicon.ico',
   favicon: 'img/favicon.ico',
   latestVersion: '1.8.0',
-  // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
 }
 
 module.exports = dengineConfig

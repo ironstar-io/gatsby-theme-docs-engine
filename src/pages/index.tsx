@@ -1,9 +1,7 @@
 import React from 'react'
-// import Button from 'antd/lib/button'
-// import 'antd/lib/button/style/css'
 import { Link } from 'gatsby'
-import { Header } from '../components/Header'
-import { Button, PageHeader, Icon } from 'antd'
+import Navbar from '../components/Navbar'
+import { Button, Icon } from 'antd'
 
 const IndexPage = () => {
   return (

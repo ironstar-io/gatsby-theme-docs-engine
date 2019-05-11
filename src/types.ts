@@ -14,16 +14,23 @@ export interface DengineConfig {
     infoLink: string
     pinned: boolean
   }>
-  headerLinks: Array<{
-    doc: string
-    label: string
-  }>
-  headerIcon: string
-  footerIcon: string
   favicon: string
   latestVersion: string
   version?: string
+  header: {
+    icon: string
+    style: {
+      backgroundImage: string
+      color: string
+    }
+    links: Array<{
+      externalRef?: string
+      internalRef?: string
+      label: string
+    }>
+  }
   footer: {
+    icon: string
     copyright: string
     brandmark: string
     links: Array<{
