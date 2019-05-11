@@ -32,6 +32,11 @@ const dengineConfig = {
     ],
   },
   footer: {
+    style: {
+      backgroundImage:
+        'linear-gradient(90deg,#3f8bfd,#483bec),linear-gradient(90deg,#483bec,#483bec)',
+      color: 'white',
+    },
     links: [
       { label: 'Ironstar', url: 'https://ironstar.io' },
       { label: 'Tokaido', url: 'https://tokaido.io' },

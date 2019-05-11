@@ -5,11 +5,23 @@ import SiteContext from '../../context/site'
 
 import './styles.sass'
 
+const defaultStyling = {
+  backgroundImage:
+    'linear-gradient(90deg,#3f8bfd,#483bec),linear-gradient(90deg,#483bec,#483bec)',
+  color: 'white',
+}
+
 const Footer = () => (
   <SiteContext.Consumer>
-    {({ footer }) => {
+    {({ footer = {} }) => {
+      const footerStyling = Object.assign(
+        {},
+        defaultStyling,
+        footer.style || {}
+      )
+
       return (
-        <footer className="footer">
+        <footer style={footerStyling} className="footer">
           <div className="container">
             {footer.brandmark && (
               <div className="brandmark">
@@ -17,15 +29,26 @@ const Footer = () => (
               </div>
             )}
             <div className="row">
-              {Array.isArray(footer.links) && (
-                <div className="resources">
-                  {footer.links.map(({ label, url }) => (
-                    <a aria-label={label} key={url} href={url}>
-                      {label}
-                    </a>
-                  ))}
-                </div>
-              )}
+              {Array.isArray(footer.links) &&
+                footer.links.map(({ externalRef, internalRef, label }) => (
+                  <div key={label}>
+                    {externalRef && (
+                      <a
+                        href={externalRef}
+                        aria-label={label}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        {label}
+                      </a>
+                    )}
+                    {internalRef && (
+                      <Link aria-label={label} to={internalRef}>
+                        {label}
+                      </Link>
+                    )}
+                  </div>
+                ))}
               <div className="contact">
                 {footer.phone && <a href="tel:+61399824413">+61 3 9982 4413</a>}
                 {footer.email && (

@@ -30,11 +30,16 @@ export interface DengineConfig {
     }>
   }
   footer: {
+    style: {
+      backgroundImage: string
+      color: string
+    }
     icon: string
     copyright: string
     brandmark: string
     links: Array<{
-      url: string
+      externalRef?: string
+      internalRef?: string
       label: string
     }>
     phone: string
