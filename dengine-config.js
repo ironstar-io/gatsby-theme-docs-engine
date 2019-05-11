@@ -27,7 +27,7 @@ const dengineConfig = {
       color: 'white',
     },
     links: [
-      { internalRef: 'docs/introduction', label: 'Docs' },
+      { internalRef: '/docs/introduction', label: 'Docs' },
       { externalRef: 'https://github.com/ironstar-io', label: 'GitHub' },
     ],
   },
