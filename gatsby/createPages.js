@@ -69,12 +69,14 @@ const buildVersionPage = async ({
   const availableVersions = [...new Set(versionArray)]
 
   for await (version of availableVersions) {
-    await createRedirect({
-      fromPath: `/${version}`,
-      toPath: `/${version}/docs/introduction`,
-      redirectInBrowser: true,
-      isPermanent: true,
-    })
+    if (version) {
+      await createRedirect({
+        fromPath: `/${version}`,
+        toPath: `/${version}/docs/introduction`,
+        redirectInBrowser: true,
+        isPermanent: true,
+      })
+    }
   }
 
   await createRedirect({
@@ -136,6 +138,16 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
   }
 }
 
+const buildIndexPage = async ({ createPage }) => {
+  const Template = path.resolve(`${__dirname}/../src/templates/Index/index.tsx`)
+
+  await createPage({
+    path: '/',
+    component: Template,
+    context: { dengineConfig },
+  })
+}
+
 module.exports = exports.createPages = async ({
   actions: { createPage, createRedirect },
   graphql,
@@ -145,6 +157,7 @@ module.exports = exports.createPages = async ({
     await Promise.all([
       buildDocsPages({ createPage, basePageData }),
       buildVersionPage({ createPage, createRedirect, basePageData }),
+      buildIndexPage({ createPage, basePageData }),
     ])
 
     return
