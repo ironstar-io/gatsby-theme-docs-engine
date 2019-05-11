@@ -59,3 +59,13 @@ export interface DocsMeta {
   path: string
   title: string
 }
+
+export interface SidebarTreeObject {
+  items: Array<{
+    key: string
+    parents: string[]
+    path: string
+    title: string
+  }>
+  parent: string
+}

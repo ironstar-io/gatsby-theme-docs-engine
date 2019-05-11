@@ -6,16 +6,10 @@ import { pathPrefix } from '../../../gatsby-config'
 
 const SubMenu = Menu.SubMenu
 
+import { SidebarTreeObject } from '../../types'
+
 interface SidebarContentsProps {
-  tree: Array<{
-    items: Array<{
-      key: string
-      parents: string[]
-      path: string
-      title: string
-    }>
-    parent: string
-  }>
+  tree: Array<SidebarTreeObject>
   parents: string[]
 }
 
