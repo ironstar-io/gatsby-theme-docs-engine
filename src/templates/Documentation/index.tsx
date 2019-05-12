@@ -18,15 +18,17 @@ interface DocumentationPageTemplateProps {
     frontmatter: {
       title: string
       parents: string[]
+      tags: string[]
     }
     body: string
     version: string
+    relativePath: string
   }
 }
 
 const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   pageContext: {
-    frontmatter: { title, parents },
+    frontmatter: { title, parents, tags },
     dengineConfig,
     relativePath,
     body,
@@ -52,7 +54,20 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
         <div className="content-wrapper">
           <div className="content-body">
             <MDXRenderer>{body}</MDXRenderer>
+
+            {Array.isArray(tags) && (
+              <div className="tags">
+                Tags:{' '}
+                {tags.map((tag, i) => (
+                  <span>
+                    {tag}
+                    {i < tags.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
+
           {repository && repository.url && repository.branch && relativePath && (
             <div className="pr-warning">
               Notice something wrong?{' '}

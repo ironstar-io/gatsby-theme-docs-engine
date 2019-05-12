@@ -30,6 +30,7 @@ const basePageQuery = async graphql => {
               title
               root
               parents
+              tags
             }
             code {
               body
