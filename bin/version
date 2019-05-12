@@ -7,6 +7,8 @@ const slugify = require('slugify')
 const { argv } = require('yargs')
 const fs = require('fs-extra')
 
+const { CONTENT_ROOT_NAME } = require('./constants')
+
 const getVersionName = async () => {
   console.log('Note that version names will be slugified')
 
@@ -27,8 +29,10 @@ const newVersion = async () => {
   try {
     const versionName = await getVersionName()
     await Promise.all([
-      fs.copy('./contents/docs', `./contents/${versionName}/docs`),
-      fs.copy('./contents/blog', `./contents/${versionName}/blog`),
+      fs.copy(
+        `./${CONTENT_ROOT_NAME}/docs`,
+        `./${CONTENT_ROOT_NAME}/${versionName}/docs`
+      ),
     ])
   } catch (err) {
     console.error(err)

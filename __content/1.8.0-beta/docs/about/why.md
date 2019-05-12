@@ -2,6 +2,7 @@
 title: Why use Tokaido?
 root: '/docs'
 parents: ['About Tokaido']
+tags: ['General', 'Introduction']
 ---
 
 # Why use Tokaido?

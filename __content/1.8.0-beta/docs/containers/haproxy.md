@@ -2,6 +2,7 @@
 title: HAProxy
 root: '/docs'
 parents: ['Containers']
+tags: ['Containers', 'Proxy']
 ---
 
 # HAProxy

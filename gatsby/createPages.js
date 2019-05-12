@@ -6,7 +6,7 @@ const { convertToTree, pullPreviousNext } = require('./pageHelpers')
 
 const stripVersion = str =>
   str
-    .split('/__contents')[1]
+    .split('/__content')[1]
     .split('/docs')[0]
     .replace('/', '')
 

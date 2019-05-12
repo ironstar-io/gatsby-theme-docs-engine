@@ -2,6 +2,7 @@
 title: Introduction
 root: '/docs'
 parents: ['root']
+tags: ['General', 'Introduction']
 ---
 
 # Introduction

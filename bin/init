@@ -3,13 +3,14 @@
 'use strict'
 
 const fs = require('fs-extra')
+const { CONTENT_ROOT_NAME } = require('./constants')
 
 const startDev = async () => {
   try {
     await Promise.all([
       fs.copy(
-        './node_modules/@ironstar/docs-engine/template/contents',
-        './contents'
+        `./node_modules/@ironstar/docs-engine/template/${CONTENT_ROOT_NAME}`,
+        `./${CONTENT_ROOT_NAME}`
       ),
       fs.copy('./node_modules/@ironstar/docs-engine/template/src', './src'),
       fs.copy(

@@ -10,16 +10,16 @@ import { Alert } from 'antd'
 
 <Alert type="warning" message="Out of date" closeable={true} />
 
-## Source of contents
+## Source of content
 
-All contents are stored under `/contents`. To change the root path, modify the following part in `gatsby-config.js`, simply by replace the `path` of it.
+All content are stored under `/content`. To change the root path, modify the following part in `gatsby-config.js`, simply by replace the `path` of it.
 
 ```sh
 {
   resolve: `gatsby-source-filesystem`,
   options: {
-    name: `contents`,
-    path: `${__dirname}/contents`
+    name: `content`,
+    path: `${__dirname}/content`
   }
 }
 ```
@@ -30,7 +30,7 @@ We store the information of the page on the top of the markdown files used to ge
 
 - `title`: the title of the page
 - `date`: the date created
-- `root`: root of the pages should show in the sidebar (based on the path under `/contents`)
+- `root`: root of the pages should show in the sidebar (based on the path under `/content`)
 - `parents`: parents of the page in the sidebar (the format show be `array`,top-down ordered).
 
 ### Example
@@ -45,7 +45,7 @@ parents: ["Guide"]
 ---
 ```
 
-The path of this file is `/contents/docs/guide/contents.md`. Since the root is `/docs`, all pages under this path will be showing in the sidebar. Some information is not used (i.e. date), so this file don't have it.
+The path of this file is `/content/docs/guide/content.md`. Since the root is `/docs`, all pages under this path will be showing in the sidebar. Some information is not used (i.e. date), so this file don't have it.
 
 ## Important to notice!
 

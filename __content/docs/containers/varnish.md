@@ -2,6 +2,7 @@
 title: Varnish
 root: '/docs'
 parents: ['Containers']
+tags: ['Containers', 'Caching']
 ---
 
 # Varnish
