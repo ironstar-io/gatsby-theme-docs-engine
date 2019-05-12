@@ -8,6 +8,10 @@ export interface DengineConfig {
     parent: string
     items: string[]
   }>
+  repository: {
+    url: string
+    branch: string
+  }
   users: Array<{
     caption: string
     image: string

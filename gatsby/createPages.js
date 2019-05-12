@@ -120,12 +120,14 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
     const { previous, next } = pullPreviousNext({ sidebarTree, frontmatter })
 
     const version = stripVersion(fileAbsolutePath)
+    const splitPath = fileAbsolutePath.split('__content')[1]
 
     createPage({
       path: replacePath(slug),
       component: Template,
       context: {
         dengineConfig,
+        relativePath: splitPath ? `/__content${splitPath}` : null,
         id,
         body,
         version,

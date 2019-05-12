@@ -28,6 +28,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   pageContext: {
     frontmatter: { title, parents },
     dengineConfig,
+    relativePath,
     body,
     sidebarTree,
     previous,
@@ -36,6 +37,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   },
 }) => {
   console.log({ sidebarTree })
+  const { repository } = dengineConfig
   return (
     <RootLayout
       dengineConfig={dengineConfig}
@@ -51,6 +53,21 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
           <div className="content-body">
             <MDXRenderer>{body}</MDXRenderer>
           </div>
+          {repository && repository.url && repository.branch && relativePath && (
+            <div className="pr-warning">
+              Notice something wrong?{' '}
+              <a
+                href={`${repository.url}/edit/${
+                  repository.branch
+                }${relativePath}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Shoot us a PR!
+              </a>
+            </div>
+          )}
+
           <PreviousNext previous={previous} next={next} />
         </div>
 
