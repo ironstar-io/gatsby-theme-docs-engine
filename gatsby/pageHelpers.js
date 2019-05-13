@@ -8,15 +8,9 @@ const buildParents = list => {
     return acc
   }, [])
 
-  const parentsReduced = [...new Set(parentsFull)]
+  const parentsReduced = [...new Set([...parentsFull, 'root'])]
 
-  return parentsReduced.reduce(
-    (acc, curr) => {
-      acc.push({ parent: curr, items: [] })
-      return acc
-    },
-    [{ parent: 'root', items: [] }]
-  )
+  return parentsReduced.map(parent => ({ parent, items: [] }))
 }
 
 const constructUnorderedTree = ({ list, parentMap }) => {
@@ -55,9 +49,11 @@ const orderTree = unorderedTree => {
 
   return dengineConfig.documentationOrder.map(doco => {
     const branch = unorderedTree.find(ot => doco.parent === ot.parent)
-    const twigs = doco.items.map(it => {
-      return branch.items.find(bri => it === bri.title)
-    })
+    const twigs = doco.items
+      .map(it => {
+        return branch.items.find(bri => it === bri.title)
+      })
+      .filter(Boolean)
 
     return { ...branch, items: twigs }
   })
@@ -84,8 +80,16 @@ const convertToTree = data => {
   const parentMap = buildParents(list)
 
   const unorderedTree = constructUnorderedTree({ list, parentMap })
+  console.log({
+    unorderedTree: unorderedTree.find(u => u.parent === 'root').items,
+  })
 
-  return orderTree(unorderedTree)
+  const x = orderTree(unorderedTree)
+  console.log({
+    x: x.find(u => u.parent === 'root').items,
+  })
+
+  return x
 }
 
 const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {

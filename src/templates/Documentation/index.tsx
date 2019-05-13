@@ -59,7 +59,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
               <div className="tags">
                 Tags:{' '}
                 {tags.map((tag, i) => (
-                  <span>
+                  <span key={tag}>
                     {tag}
                     {i < tags.length - 1 ? ', ' : ''}
                   </span>

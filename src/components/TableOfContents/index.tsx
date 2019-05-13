@@ -51,8 +51,10 @@ export function TableOfContents() {
           </Link>
         )
       }
+
       return <Link href={item.href} title={item.title} key={item.href} />
     })
+
   return (
     <Anchor style={{ margin: '50px 50px 0px 0px' }}>{loop(anchors)}</Anchor>
   )

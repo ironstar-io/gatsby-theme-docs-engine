@@ -29,36 +29,50 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
       defaultOpenKeys={parents}
       selectedKeys={keys}
     >
-      {tree.map(branch => {
-        if (branch.parent === 'root') {
-          return branch.items.map(twig => {
-            return (
-              <Menu.Item key={twig.path}>
-                <Link to={twig.path}>
-                  <div>{twig.title}</div>
-                </Link>
-              </Menu.Item>
-            )
-          })
-        }
+      {Array.isArray(tree) &&
+        tree.map(branch => {
+          console.log({ branch })
+          if (!branch || !Array.isArray(branch.items)) {
+            return null
+          }
 
-        return (
-          <SubMenu
-            key={branch.parent}
-            title={<span style={{ fontWeight: 900 }}>{branch.parent}</span>}
-          >
-            {branch.items.map(twig => {
-              return (
-                <Menu.Item key={twig.path}>
-                  <Link to={twig.path}>
-                    <div>{twig.title}</div>
-                  </Link>
-                </Menu.Item>
-              )
-            })}
-          </SubMenu>
-        )
-      })}
+          if (branch.parent === 'root') {
+            return branch.items.map(twig => {
+              if (twig) {
+                return (
+                  <Menu.Item key={twig.path}>
+                    <Link to={twig.path}>
+                      <div>{twig.title}</div>
+                    </Link>
+                  </Menu.Item>
+                )
+              }
+
+              return null
+            })
+          }
+
+          return (
+            <SubMenu
+              key={branch.parent}
+              title={<span style={{ fontWeight: 900 }}>{branch.parent}</span>}
+            >
+              {branch.items.map(twig => {
+                if (twig) {
+                  return (
+                    <Menu.Item key={twig.path}>
+                      <Link to={twig.path}>
+                        <div>{twig.title}</div>
+                      </Link>
+                    </Menu.Item>
+                  )
+                }
+
+                return null
+              })}
+            </SubMenu>
+          )
+        })}
     </Menu>
   )
 }

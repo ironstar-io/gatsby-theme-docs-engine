@@ -10,6 +10,7 @@ const dengineConfig = {
     { parent: 'About Tokaido', items: ['Why use Tokaido?'] },
     { parent: 'Containers', items: ['General', 'HAProxy', 'Varnish'] },
   ],
+  defaultLocale: 'en',
   repository: {
     url: 'https://github.com/ironstar-io/docs-engine',
     branch: 'master',

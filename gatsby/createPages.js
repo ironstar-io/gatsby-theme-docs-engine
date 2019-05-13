@@ -4,11 +4,12 @@ const dengineConfig = require('../dengine-config')
 
 const { convertToTree, pullPreviousNext } = require('./pageHelpers')
 
-const stripVersion = str =>
+const splitLocaleVersion = str =>
   str
     .split('/__content')[1]
     .split('/docs')[0]
     .replace('/', '')
+    .split('/')
 
 const basePageQuery = async graphql => {
   const result = await graphql(`
@@ -48,7 +49,7 @@ const basePageQuery = async graphql => {
   return result
 }
 
-const buildVersionPage = async ({
+const buildVersionsPage = async ({
   createPage,
   createRedirect,
   basePageData,
@@ -63,35 +64,106 @@ const buildVersionPage = async ({
     },
   } = basePageData
 
-  const versionArray = edges.map(({ node: { fileAbsolutePath } }) =>
-    stripVersion(fileAbsolutePath)
+  const versionLocaleMap = edges.reduce(
+    (acc, { node: { fileAbsolutePath } }) => {
+      const [locale, version] = splitLocaleVersion(fileAbsolutePath)
+
+      if (acc[locale] && !acc[locale].includes(version)) {
+        acc[locale].push(version)
+      } else {
+        acc[locale] = [version]
+      }
+
+      return acc
+    },
+    {}
   )
 
-  const availableVersions = [...new Set(versionArray)]
-
-  for await (version of availableVersions) {
-    if (version) {
-      await createRedirect({
-        fromPath: `/${version}`,
-        toPath: `/${version}/docs/introduction`,
-        redirectInBrowser: true,
-        isPermanent: true,
-      })
-    }
-  }
+  const { defaultLocale } = dengineConfig
 
   await createRedirect({
     fromPath: `/version`,
-    toPath: `/versions`,
+    toPath: `/${defaultLocale || 'en'}/versions`,
+    redirectInBrowser: true,
+    isPermanent: true,
+  })
+  await createRedirect({
+    fromPath: `/versions`,
+    toPath: `/${defaultLocale || 'en'}/versions`,
     redirectInBrowser: true,
     isPermanent: true,
   })
 
-  await createPage({
-    path: '/versions',
-    component: Template,
-    context: { dengineConfig, availableVersions },
-  })
+  for await (locale of Object.keys(versionLocaleMap)) {
+    for await (version of versionLocaleMap[locale]) {
+      if (version) {
+        await createRedirect({
+          fromPath: `/${locale}/${version}`,
+          toPath: `/${locale}/${version}/docs/introduction`,
+          redirectInBrowser: true,
+          isPermanent: true,
+        })
+      }
+    }
+
+    await createRedirect({
+      fromPath: `/${locale}/version`,
+      toPath: `/${locale}/versions`,
+      redirectInBrowser: true,
+      isPermanent: true,
+    })
+
+    await createPage({
+      path: `/${locale}/versions`,
+      component: Template,
+      context: { dengineConfig, availableVersions: versionLocaleMap[locale] },
+    })
+  }
+}
+
+const buildLocalesPage = async ({
+  createPage,
+  createRedirect,
+  basePageData,
+}) => {
+  const Template = path.resolve(
+    `${__dirname}/../src/templates/Version/index.tsx`
+  )
+
+  const {
+    data: {
+      allMdx: { edges },
+    },
+  } = basePageData
+
+  const versionLocaleMap = edges.reduce(
+    (acc, { node: { fileAbsolutePath } }) => {
+      const [locale, version] = splitLocaleVersion(fileAbsolutePath)
+
+      if (acc[locale] && !acc[locale].includes(version)) {
+        acc[locale].push(version)
+      } else {
+        acc[locale] = [version]
+      }
+
+      return acc
+    },
+    {}
+  )
+
+  console.log({ versionLocaleMap })
+  // await createRedirect({
+  //   fromPath: `/locale`,
+  //   toPath: `/locales`,
+  //   redirectInBrowser: true,
+  //   isPermanent: true,
+  // })
+
+  // await createPage({
+  //   path: '/locales',
+  //   component: Template,
+  //   context: { dengineConfig, availableVersions },
+  // })
 }
 
 const buildDocsPages = async ({ createPage, basePageData }) => {
@@ -105,7 +177,34 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
     },
   } = basePageData
 
-  const sidebarTree = convertToTree(edges)
+  const localeList = edges.map(
+    ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
+  )
+  const availableLocales = [...new Set(localeList)]
+
+  const localeSplitEdges = edges.reduce((acc, curr) => {
+    const {
+      node: { fileAbsolutePath },
+    } = curr
+    const [locale] = splitLocaleVersion(fileAbsolutePath)
+
+    if (acc[locale]) {
+      acc[locale].push(curr)
+    } else {
+      acc[locale] = [curr]
+    }
+
+    return acc
+  }, {})
+
+  const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
+    (acc, curr) => {
+      console.log({ locallllle: curr })
+      acc[curr] = convertToTree(localeSplitEdges[curr])
+      return acc
+    },
+    {}
+  )
 
   for await (edge of edges) {
     const {
@@ -118,22 +217,27 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
       },
     } = edge
 
-    const { previous, next } = pullPreviousNext({ sidebarTree, frontmatter })
-
-    const version = stripVersion(fileAbsolutePath)
+    const [locale, version] = splitLocaleVersion(fileAbsolutePath)
     const splitPath = fileAbsolutePath.split('__content')[1]
+
+    const { previous, next } = pullPreviousNext({
+      sidebarTree: localeSidebarTrees[locale],
+      frontmatter,
+    })
 
     createPage({
       path: replacePath(slug),
       component: Template,
       context: {
         dengineConfig,
+        availableLocales,
         relativePath: splitPath ? `/__content${splitPath}` : null,
+        sidebarTree: localeSidebarTrees[locale],
         id,
         body,
         version,
+        locale,
         frontmatter,
-        sidebarTree,
         previous,
         next,
       },
@@ -159,7 +263,8 @@ module.exports = exports.createPages = async ({
     const basePageData = await basePageQuery(graphql)
     await Promise.all([
       buildDocsPages({ createPage, basePageData }),
-      buildVersionPage({ createPage, createRedirect, basePageData }),
+      buildVersionsPage({ createPage, createRedirect, basePageData }),
+      // buildLocalesPage({ createPage, createRedirect, basePageData }),
       buildIndexPage({ createPage, basePageData }),
     ])
 

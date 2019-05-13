@@ -4,6 +4,7 @@ export interface DengineConfig {
   url: string
   projectName: string
   organizationName: string
+  defaultLocale: string
   documentationOrder: Array<{
     parent: string
     items: string[]
