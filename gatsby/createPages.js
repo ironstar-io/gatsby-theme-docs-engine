@@ -1,6 +1,7 @@
 const replacePath = require('./utils')
 const path = require('path')
 const dengineConfig = require('../dengine-config')
+const dengineContent = require('../dengine-content')
 
 const { convertToTree, pullPreviousNext } = require('./pageHelpers')
 
@@ -230,9 +231,10 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
       component: Template,
       context: {
         dengineConfig,
-        availableLocales,
+        dengineContent: dengineContent[locale],
         relativePath: splitPath ? `/__content${splitPath}` : null,
         sidebarTree: localeSidebarTrees[locale],
+        availableLocales,
         id,
         body,
         version,
