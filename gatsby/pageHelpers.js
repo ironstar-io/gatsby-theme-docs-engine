@@ -1,4 +1,5 @@
 const dengineConfig = require('../dengine-config')
+const dengineContent = require('../dengine-content')
 
 const buildParents = list => {
   const parentsFull = list.reduce((acc, curr) => {
@@ -35,19 +36,20 @@ const constructUnorderedTree = ({ list, parentMap }) => {
   }, parentMap)
 }
 
-const orderTree = unorderedTree => {
+const orderTree = ({ unorderedTree, locale }) => {
   if (
-    !dengineConfig.documentationOrder ||
-    !Array.isArray(dengineConfig.documentationOrder)
+    !dengineContent[locale] ||
+    !dengineContent[locale].documentationOrder ||
+    !Array.isArray(dengineContent[locale].documentationOrder)
   ) {
     console.warning(
-      'Has `documentationOrder` been specified in your dengine-config.js file?'
+      `Has 'documentationOrder' been specified in your dengine-config.js file for the locale '${locale}'?`
     )
 
     return []
   }
 
-  return dengineConfig.documentationOrder.map(doco => {
+  return dengineContent[locale].documentationOrder.map(doco => {
     const branch = unorderedTree.find(ot => doco.parent === ot.parent)
     const twigs = doco.items
       .map(it => {
@@ -59,8 +61,8 @@ const orderTree = unorderedTree => {
   })
 }
 
-const convertToTree = data => {
-  const list = data.map(edge => {
+const convertToTree = ({ edges, locale }) => {
+  const list = edges.map(edge => {
     const {
       node: {
         id,
@@ -84,7 +86,7 @@ const convertToTree = data => {
     unorderedTree: unorderedTree.find(u => u.parent === 'root').items,
   })
 
-  const x = orderTree(unorderedTree)
+  const x = orderTree({ unorderedTree, locale })
   console.log({
     x: x.find(u => u.parent === 'root').items,
   })
@@ -131,7 +133,7 @@ const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
         }
         if (sidebarTree[0].parent !== targetParent) {
           const previousParent = sidebarTree.find(
-            (st, i) =>
+            (_, i) =>
               sidebarTree[i + 1] && sidebarTree[i + 1].parent === targetParent
           )
 
@@ -151,7 +153,7 @@ const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
         }
         if (sidebarTree[sidebarTree.length - 1].parent !== targetParent) {
           const nextParent = sidebarTree.find(
-            (st, i) =>
+            (_, i) =>
               sidebarTree[i - 1] && sidebarTree[i - 1].parent === targetParent
           )
 

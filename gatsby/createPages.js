@@ -200,7 +200,7 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
   const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
     (acc, curr) => {
       console.log({ locallllle: curr })
-      acc[curr] = convertToTree(localeSplitEdges[curr])
+      acc[curr] = convertToTree({ edges: localeSplitEdges[curr], locale: curr })
       return acc
     },
     {}

@@ -35,7 +35,7 @@ const PreviousNext = ({ previous = {}, next = {} }: Props) => {
   return (
     <nav id="previous-next">
       <div className="previous">
-        {previous && (
+        {previous && previous.title && (
           <Button
             invertColor={true}
             linkRef={previous.path}
@@ -46,7 +46,7 @@ const PreviousNext = ({ previous = {}, next = {} }: Props) => {
         )}
       </div>
       <div className="next">
-        {nextText && (
+        {next && next.title && (
           <Button invertColor={true} linkRef={next.path} ariaLabel={nextText}>
             {nextText}
           </Button>
