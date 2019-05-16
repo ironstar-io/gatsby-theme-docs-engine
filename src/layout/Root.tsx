@@ -16,12 +16,15 @@ interface RootLayoutProps {
 
 const RootLayout: React.SFC<RootLayoutProps> = ({
   dengineConfig,
+  dengineContent,
   pageTitle,
   version,
   children,
 }: any) => {
   return (
-    <SiteContext.Provider value={{ ...dengineConfig, version }}>
+    <SiteContext.Provider
+      value={{ ...dengineConfig, ...dengineContent, version }}
+    >
       <div
         style={{
           display: 'grid',

@@ -58,7 +58,7 @@ const dengineContent = {
   },
   jp: {
     // NOT GLOBAL
-    name: 'IronstarドキュメンテイションエンCLI', // Title for your website.
+    name: 'IronstarドキュメンテーションCLI', // Title for your website.
     tagline: 'A website for testing',
     organizationName: 'Ironstar株式会社',
     locale: {

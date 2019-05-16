@@ -30,6 +30,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   pageContext: {
     frontmatter: { title, parents, tags },
     dengineConfig,
+    dengineContent,
     relativePath,
     body,
     sidebarTree,
@@ -43,6 +44,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   return (
     <RootLayout
       dengineConfig={dengineConfig}
+      dengineContent={dengineContent}
       pageTitle={title}
       version={version}
     >

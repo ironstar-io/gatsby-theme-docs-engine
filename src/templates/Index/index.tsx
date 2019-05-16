@@ -13,12 +13,14 @@ interface IndexPageProps {
 }
 
 const IndexPage: React.SFC<IndexPageProps> = ({
-  pageContext: { dengineConfig },
+  pageContext: { dengineConfig, dengineContent, firstDoc, locale },
 }) => {
-  const { name } = dengineConfig
+  const { name } = dengineContent
+
   return (
     <RootLayout
       dengineConfig={dengineConfig}
+      dengineContent={dengineContent}
       pageTitle="Hello"
       version="latest"
     >
@@ -27,10 +29,7 @@ const IndexPage: React.SFC<IndexPageProps> = ({
           <h1>{name}</h1>
           <h2>An extensible engine for powering your docs</h2>
 
-          <Button
-            ariaLabel="Get Started"
-            linkRef="/docs/get-started/introduction"
-          >
+          <Button ariaLabel="Get Started" linkRef={firstDoc}>
             Get Started
           </Button>
         </div>
