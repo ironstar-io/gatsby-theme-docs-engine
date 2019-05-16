@@ -2,15 +2,14 @@ const replacePath = require('./utils')
 const path = require('path')
 const dengineConfig = require('../dengine-config')
 const dengineContent = require('../dengine-content')
+const lodashGet = require('lodash.get')
 
-const { convertToTree, pullPreviousNext } = require('./pageHelpers')
-
-const splitLocaleVersion = str =>
-  str
-    .split('/__content')[1]
-    .split('/docs')[0]
-    .replace('/', '')
-    .split('/')
+const {
+  convertToTree,
+  splitLocaleVersion,
+  buildLocaleTrees,
+  pullPreviousNext,
+} = require('./pageHelpers')
 
 const basePageQuery = async graphql => {
   const result = await graphql(`
@@ -167,7 +166,12 @@ const buildLocalesPage = async ({
   // })
 }
 
-const buildDocsPages = async ({ createPage, basePageData }) => {
+const buildDocsPages = async ({
+  createPage,
+  basePageData,
+  availableLocales,
+  localeSidebarTrees,
+}) => {
   const Template = path.resolve(
     `${__dirname}/../src/templates/Documentation/index.tsx`
   )
@@ -177,35 +181,6 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
       allMdx: { edges },
     },
   } = basePageData
-
-  const localeList = edges.map(
-    ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
-  )
-  const availableLocales = [...new Set(localeList)]
-
-  const localeSplitEdges = edges.reduce((acc, curr) => {
-    const {
-      node: { fileAbsolutePath },
-    } = curr
-    const [locale] = splitLocaleVersion(fileAbsolutePath)
-
-    if (acc[locale]) {
-      acc[locale].push(curr)
-    } else {
-      acc[locale] = [curr]
-    }
-
-    return acc
-  }, {})
-
-  const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
-    (acc, curr) => {
-      console.log({ locallllle: curr })
-      acc[curr] = convertToTree({ edges: localeSplitEdges[curr], locale: curr })
-      return acc
-    },
-    {}
-  )
 
   for await (edge of edges) {
     const {
@@ -231,7 +206,8 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
       component: Template,
       context: {
         dengineConfig,
-        dengineContent: dengineContent[locale],
+        dengineContent:
+          dengineContent[locale] || dengineContent[dengineConfig.defaultLocale],
         relativePath: splitPath ? `/__content${splitPath}` : null,
         sidebarTree: localeSidebarTrees[locale],
         availableLocales,
@@ -247,14 +223,43 @@ const buildDocsPages = async ({ createPage, basePageData }) => {
   }
 }
 
-const buildIndexPage = async ({ createPage }) => {
+const buildIndexPage = async ({ createPage, localeSidebarTrees }) => {
   const Template = path.resolve(`${__dirname}/../src/templates/Index/index.tsx`)
+  const defaultFirstDoc = lodashGet(
+    localeSidebarTrees,
+    `[${dengineConfig.defaultLocale}][0].items[0].path`
+  )
 
   await createPage({
     path: '/',
     component: Template,
-    context: { dengineConfig },
+    context: {
+      dengineConfig,
+      dengineContent: dengineContent[dengineConfig.defaultLocale],
+      locale: dengineConfig.defaultLocale,
+      firstDoc: defaultFirstDoc,
+    },
   })
+
+  const locales = Object.keys(dengineContent)
+
+  for await (locale of locales) {
+    const localeFirstDoc = lodashGet(
+      localeSidebarTrees,
+      `[${locale}][0].items[0].path`
+    )
+
+    await createPage({
+      path: `/${locale}`,
+      component: Template,
+      context: {
+        dengineConfig,
+        dengineContent: dengineContent[locale],
+        firstDoc: localeFirstDoc,
+        locale,
+      },
+    })
+  }
 }
 
 module.exports = exports.createPages = async ({
@@ -263,11 +268,24 @@ module.exports = exports.createPages = async ({
 }) => {
   try {
     const basePageData = await basePageQuery(graphql)
+    const { availableLocales, localeSidebarTrees } = buildLocaleTrees({
+      basePageData,
+    })
     await Promise.all([
-      buildDocsPages({ createPage, basePageData }),
+      buildIndexPage({
+        createPage,
+        basePageData,
+        availableLocales,
+        localeSidebarTrees,
+      }),
+      buildDocsPages({
+        createPage,
+        basePageData,
+        availableLocales,
+        localeSidebarTrees,
+      }),
       buildVersionsPage({ createPage, createRedirect, basePageData }),
       // buildLocalesPage({ createPage, createRedirect, basePageData }),
-      buildIndexPage({ createPage, basePageData }),
     ])
 
     return

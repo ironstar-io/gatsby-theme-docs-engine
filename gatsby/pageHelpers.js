@@ -82,16 +82,8 @@ const convertToTree = ({ edges, locale }) => {
   const parentMap = buildParents(list)
 
   const unorderedTree = constructUnorderedTree({ list, parentMap })
-  console.log({
-    unorderedTree: unorderedTree.find(u => u.parent === 'root').items,
-  })
 
-  const x = orderTree({ unorderedTree, locale })
-  console.log({
-    x: x.find(u => u.parent === 'root').items,
-  })
-
-  return x
+  return orderTree({ unorderedTree, locale })
 }
 
 const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
@@ -178,7 +170,57 @@ const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
   return { previous: null, next: null }
 }
 
+const buildLocaleTrees = ({ basePageData }) => {
+  const {
+    data: {
+      allMdx: { edges },
+    },
+  } = basePageData
+
+  const localeList = edges.map(
+    ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
+  )
+  const availableLocales = [...new Set(localeList)]
+
+  const localeSplitEdges = edges.reduce((acc, curr) => {
+    const {
+      node: { fileAbsolutePath },
+    } = curr
+    const [locale] = splitLocaleVersion(fileAbsolutePath)
+
+    if (acc[locale]) {
+      acc[locale].push(curr)
+    } else {
+      acc[locale] = [curr]
+    }
+
+    return acc
+  }, {})
+
+  const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
+    (acc, curr) => {
+      acc[curr] = convertToTree({ edges: localeSplitEdges[curr], locale: curr })
+      return acc
+    },
+    {}
+  )
+
+  return {
+    availableLocales,
+    localeSidebarTrees,
+  }
+}
+
+const splitLocaleVersion = str =>
+  str
+    .split('/__content')[1]
+    .split('/docs')[0]
+    .replace('/', '')
+    .split('/')
+
 module.exports = {
+  splitLocaleVersion,
   convertToTree,
+  buildLocaleTrees,
   pullPreviousNext,
 }
