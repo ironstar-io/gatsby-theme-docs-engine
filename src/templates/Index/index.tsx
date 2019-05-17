@@ -21,6 +21,7 @@ const IndexPage: React.SFC<IndexPageProps> = ({
     <RootLayout
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
+      locale={locale}
       pageTitle="Hello"
       version="latest"
     >

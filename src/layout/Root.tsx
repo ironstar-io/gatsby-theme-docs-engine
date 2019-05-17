@@ -19,11 +19,12 @@ const RootLayout: React.SFC<RootLayoutProps> = ({
   dengineContent,
   pageTitle,
   version,
+  locale,
   children,
 }: any) => {
   return (
     <SiteContext.Provider
-      value={{ ...dengineConfig, ...dengineContent, version }}
+      value={{ ...dengineConfig, ...dengineContent, locale, version }}
     >
       <div
         style={{

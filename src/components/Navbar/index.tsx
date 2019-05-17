@@ -15,7 +15,7 @@ const defaultStyling = {
 const Navbar: React.SFC<{}> = () => {
   return (
     <SiteContext.Consumer>
-      {({ header = {}, name, version }: DengineConfig) => {
+      {({ header = {}, name, version, locale }: DengineConfig) => {
         const headerStyling = Object.assign(
           {},
           defaultStyling,
@@ -33,7 +33,9 @@ const Navbar: React.SFC<{}> = () => {
               <div className="right">
                 {version !== 'N/A' && (
                   <div className="version-button">
-                    <Link to="/versions">{version || 'latest'} </Link>
+                    <Link to={`/${locale}/versions`}>
+                      {version || 'latest'}
+                    </Link>
                   </div>
                 )}
 

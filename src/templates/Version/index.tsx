@@ -16,7 +16,13 @@ interface VersionPageTemplateProps {
 }
 
 const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
-  pageContext: { dengineConfig, dengineContent, availableVersions },
+  pageContext: {
+    dengineConfig,
+    dengineContent,
+    availableVersions,
+    locale,
+    firstDoc,
+  },
 }) => {
   const { latestVersion } = dengineConfig
   return (
@@ -24,6 +30,7 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
       pageTitle="Available Versions"
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
+      locale={locale}
       version="N/A"
     >
       <Layout className="version-page">
@@ -37,11 +44,11 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
           <div>
             <h1>Available Versions</h1>
             <div>
-              <Link to={`/docs/introduction`}>Latest ({latestVersion})</Link>
+              <Link to={firstDoc}>Latest ({latestVersion})</Link>
             </div>
             {availableVersions.map(version => (
               <div key={version}>
-                <Link to={`/${version}`}>{version}</Link>
+                <Link to={`/${locale}/${version}`}>{version}</Link>
               </div>
             ))}
           </div>

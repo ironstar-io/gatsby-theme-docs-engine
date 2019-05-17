@@ -53,6 +53,7 @@ const buildVersionsPage = async ({
   createPage,
   createRedirect,
   basePageData,
+  localeSidebarTrees,
 }) => {
   const Template = path.resolve(
     `${__dirname}/../src/templates/Version/index.tsx`
@@ -106,6 +107,11 @@ const buildVersionsPage = async ({
       }
     }
 
+    const firstDoc = lodashGet(
+      localeSidebarTrees,
+      `[${locale}][0].items[0].path`
+    )
+
     await createRedirect({
       fromPath: `/${locale}/version`,
       toPath: `/${locale}/versions`,
@@ -116,7 +122,13 @@ const buildVersionsPage = async ({
     await createPage({
       path: `/${locale}/versions`,
       component: Template,
-      context: { dengineConfig, availableVersions: versionLocaleMap[locale] },
+      context: {
+        dengineConfig,
+        locale,
+        firstDoc,
+        dengineContent: dengineContent[locale],
+        availableVersions: versionLocaleMap[locale],
+      },
     })
   }
 }
@@ -284,7 +296,12 @@ module.exports = exports.createPages = async ({
         availableLocales,
         localeSidebarTrees,
       }),
-      buildVersionsPage({ createPage, createRedirect, basePageData }),
+      buildVersionsPage({
+        createPage,
+        createRedirect,
+        basePageData,
+        localeSidebarTrees,
+      }),
       // buildLocalesPage({ createPage, createRedirect, basePageData }),
     ])
 

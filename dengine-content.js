@@ -4,7 +4,7 @@ const dengineContent = {
     name: 'Ironstar Documentation Engine', // Title for your website.
     tagline: 'A website for testing',
     organizationName: 'Ironstar',
-    locale: {
+    localeInfo: {
       code: 'en',
       name: 'English',
     },
@@ -61,7 +61,7 @@ const dengineContent = {
     name: 'IronstarドキュメンテーションCLI', // Title for your website.
     tagline: 'A website for testing',
     organizationName: 'Ironstar株式会社',
-    locale: {
+    localeInfo: {
       code: 'jp',
       name: '日本語',
     },

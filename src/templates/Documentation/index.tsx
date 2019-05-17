@@ -33,6 +33,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
     dengineContent,
     relativePath,
     body,
+    locale,
     sidebarTree,
     previous,
     next,
@@ -46,6 +47,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
       pageTitle={title}
+      locale={locale}
       version={version}
     >
       <div className="documentation-page main-wrapper">
