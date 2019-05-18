@@ -5,7 +5,6 @@ const dengineContent = require('../dengine-content')
 const lodashGet = require('lodash.get')
 
 const {
-  convertToTree,
   splitLocaleVersion,
   buildLocaleTrees,
   pullPreviousNext,
@@ -209,7 +208,7 @@ const buildDocsPages = async ({
     const splitPath = fileAbsolutePath.split('__content')[1]
 
     const { previous, next } = pullPreviousNext({
-      sidebarTree: localeSidebarTrees[locale],
+      sidebarTree: localeSidebarTrees[locale][version],
       frontmatter,
     })
 
@@ -221,7 +220,7 @@ const buildDocsPages = async ({
         dengineContent:
           dengineContent[locale] || dengineContent[dengineConfig.defaultLocale],
         relativePath: splitPath ? `/__content${splitPath}` : null,
-        sidebarTree: localeSidebarTrees[locale],
+        sidebarTree: localeSidebarTrees[locale][version],
         availableLocales,
         id,
         body,
@@ -282,6 +281,10 @@ module.exports = exports.createPages = async ({
     const basePageData = await basePageQuery(graphql)
     const { availableLocales, localeSidebarTrees } = buildLocaleTrees({
       basePageData,
+    })
+    console.log({
+      availableLocales,
+      localeSidebarTrees: localeSidebarTrees.jp.latest,
     })
     await Promise.all([
       buildIndexPage({

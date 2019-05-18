@@ -1,32 +1,17 @@
-const dengineConfig = require('../dengine-config')
-const dengineContent = require('../dengine-content')
-
-const buildParents = list => {
-  const parentsFull = list.reduce((acc, curr) => {
-    if (Array.isArray(curr.parents)) {
-      return [...acc, ...curr.parents]
-    }
-    return acc
-  }, [])
-
-  const parentsReduced = [...new Set([...parentsFull, 'root'])]
-
-  return parentsReduced.map(parent => ({ parent, items: [] }))
-}
-
-const constructUnorderedTree = ({ list, parentMap }) => {
+const constructUnorderedTree = ({
+  list,
+  parentMap,
+  documentationOrder = [],
+}) => {
   return list.reduce((acc, curr) => {
-    if (Array.isArray(curr.parents)) {
-      for (parent of curr.parents) {
-        for (a of acc) {
-          if (a.parent === parent) {
-            a.items.push(curr)
-          }
-        }
-      }
-    } else {
+    const filteredParent = documentationOrder.filter(doco =>
+      doco.items.includes(curr.title)
+    )
+    console.log({ filteredParent })
+
+    for (parentObj of filteredParent) {
       for (a of acc) {
-        if (a.parent === 'root') {
+        if (a.parent === parentObj.parent) {
           a.items.push(curr)
         }
       }
@@ -36,20 +21,16 @@ const constructUnorderedTree = ({ list, parentMap }) => {
   }, parentMap)
 }
 
-const orderTree = ({ unorderedTree, locale }) => {
-  if (
-    !dengineContent[locale] ||
-    !dengineContent[locale].documentationOrder ||
-    !Array.isArray(dengineContent[locale].documentationOrder)
-  ) {
+const orderTree = ({ unorderedTree, documentationOrder }) => {
+  if (!documentationOrder) {
     console.warning(
-      `Has 'documentationOrder' been specified in your dengine-config.js file for the locale '${locale}'?`
+      `Has 'documentationOrder' been specified in your config.js file for this locale and version?`
     )
 
     return []
   }
 
-  return dengineContent[locale].documentationOrder.map(doco => {
+  return documentationOrder.map(doco => {
     const branch = unorderedTree.find(ot => doco.parent === ot.parent)
     const twigs = doco.items
       .map(it => {
@@ -61,29 +42,103 @@ const orderTree = ({ unorderedTree, locale }) => {
   })
 }
 
-const convertToTree = ({ edges, locale }) => {
+const convertToTree = ({ edges, locale, version }) => {
   const list = edges.map(edge => {
     const {
       node: {
         id,
         fields: { slug },
-        frontmatter: { title, parents },
+        frontmatter: { title },
       },
     } = edge
 
     return {
       title,
-      parents,
       path: slug,
       key: id,
     }
   })
 
-  const parentMap = buildParents(list)
+  const { documentationOrder } = require(`../__content/${locale}${
+    version === 'latest' ? '' : `/${version}`
+  }/docs/config.js`)
 
-  const unorderedTree = constructUnorderedTree({ list, parentMap })
+  const parentMap = documentationOrder.map(doco => ({
+    parent: doco.parent,
+    items: [],
+  }))
 
-  return orderTree({ unorderedTree, locale })
+  const unorderedTree = constructUnorderedTree({
+    list,
+    parentMap,
+    documentationOrder,
+  })
+
+  // console.log({ unorderedTree })
+
+  return orderTree({ unorderedTree, documentationOrder })
+}
+
+const buildLocaleTrees = ({ basePageData }) => {
+  const {
+    data: {
+      allMdx: { edges },
+    },
+  } = basePageData
+
+  const localeList = edges.map(
+    ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
+  )
+  const availableLocales = [...new Set(localeList)]
+
+  const localeSplitEdges = edges.reduce((acc, curr) => {
+    const {
+      node: { fileAbsolutePath },
+    } = curr
+    const [locale, version] = splitLocaleVersion(fileAbsolutePath)
+
+    if (acc[locale]) {
+      if (!version) {
+        acc[locale].latest = [...(acc[locale].latest || []), curr]
+        return acc
+      }
+
+      acc[locale][version] = [...(acc[locale][version] || []), curr]
+      return acc
+    }
+
+    acc[locale] = {}
+    if (!version) {
+      acc[locale].latest = [...(acc[locale].latest || []), curr]
+      return acc
+    }
+
+    acc[locale][version] = [...(acc[locale][version] || []), curr]
+    return acc
+  }, {})
+
+  const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
+    (acc, locale) => {
+      acc[locale] = Object.keys(localeSplitEdges[locale]).reduce(
+        (a, version) => {
+          a[version] = convertToTree({
+            edges: localeSplitEdges[locale][version],
+            locale,
+            version,
+          })
+          return a
+        },
+        {}
+      )
+      return acc
+    },
+    {}
+  )
+
+  return {
+    availableLocales,
+    localeSidebarTrees,
+  }
 }
 
 const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
@@ -170,53 +225,15 @@ const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
   return { previous: null, next: null }
 }
 
-const buildLocaleTrees = ({ basePageData }) => {
-  const {
-    data: {
-      allMdx: { edges },
-    },
-  } = basePageData
-
-  const localeList = edges.map(
-    ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
-  )
-  const availableLocales = [...new Set(localeList)]
-
-  const localeSplitEdges = edges.reduce((acc, curr) => {
-    const {
-      node: { fileAbsolutePath },
-    } = curr
-    const [locale] = splitLocaleVersion(fileAbsolutePath)
-
-    if (acc[locale]) {
-      acc[locale].push(curr)
-    } else {
-      acc[locale] = [curr]
-    }
-
-    return acc
-  }, {})
-
-  const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
-    (acc, curr) => {
-      acc[curr] = convertToTree({ edges: localeSplitEdges[curr], locale: curr })
-      return acc
-    },
-    {}
-  )
-
-  return {
-    availableLocales,
-    localeSidebarTrees,
-  }
-}
-
-const splitLocaleVersion = str =>
-  str
+const splitLocaleVersion = str => {
+  const [locale, version] = str
     .split('/__content')[1]
     .split('/docs')[0]
     .replace('/', '')
     .split('/')
+
+  return [locale, version ? version : 'latest']
+}
 
 module.exports = {
   splitLocaleVersion,
