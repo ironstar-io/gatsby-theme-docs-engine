@@ -1,7 +1,7 @@
 ---
 title: 東海道へようこそ
 root: '/docs'
-parents: ['root']
+
 tags: ['一般情報', '挨拶']
 ---
 

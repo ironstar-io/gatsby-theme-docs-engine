@@ -95,28 +95,20 @@ const buildVersionsPage = async ({
   })
 
   for await (locale of Object.keys(versionLocaleMap)) {
-    for await (version of versionLocaleMap[locale]) {
-      if (version) {
-        await createRedirect({
-          fromPath: `/${locale}/${version}`,
-          toPath: `/${locale}/${version}/docs/introduction`,
-          redirectInBrowser: true,
-          isPermanent: true,
+    const firstDocMap = Object.keys(localeSidebarTrees[locale]).reduce(
+      (acc, version) => {
+        acc.push({
+          version,
+          path: lodashGet(
+            localeSidebarTrees[locale][version],
+            '[0].items[0].path'
+          ),
         })
-      }
-    }
 
-    const firstDoc = lodashGet(
-      localeSidebarTrees,
-      `[${locale}][0].items[0].path`
+        return acc
+      },
+      []
     )
-
-    await createRedirect({
-      fromPath: `/${locale}/version`,
-      toPath: `/${locale}/versions`,
-      redirectInBrowser: true,
-      isPermanent: true,
-    })
 
     await createPage({
       path: `/${locale}/versions`,
@@ -124,10 +116,17 @@ const buildVersionsPage = async ({
       context: {
         dengineConfig,
         locale,
-        firstDoc,
+        firstDocMap,
         dengineContent: dengineContent[locale],
         availableVersions: versionLocaleMap[locale],
       },
+    })
+
+    await createRedirect({
+      fromPath: `/${locale}/version`,
+      toPath: `/${locale}/versions`,
+      redirectInBrowser: true,
+      isPermanent: true,
     })
   }
 }
@@ -279,7 +278,7 @@ module.exports = exports.createPages = async ({
 }) => {
   try {
     const basePageData = await basePageQuery(graphql)
-    const { availableLocales, localeSidebarTrees } = buildLocaleTrees({
+    const { availableLocales, localeSidebarTrees } = await buildLocaleTrees({
       basePageData,
     })
     console.log({

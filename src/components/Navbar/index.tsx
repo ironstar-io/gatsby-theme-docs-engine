@@ -27,7 +27,7 @@ const Navbar: React.SFC<{}> = () => {
             <div className="container">
               <div className="left">
                 <div>
-                  <Link to="/docs/introduction/">{name}</Link>
+                  <Link to="/">{name}</Link>
                 </div>
               </div>
               <div className="right">

@@ -21,10 +21,11 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
     dengineContent,
     availableVersions,
     locale,
-    firstDoc,
+    firstDocMap,
   },
 }) => {
   const { latestVersion } = dengineConfig
+  const latestDoc = firstDocMap.find(fdoc => fdoc.version === 'latest')
   return (
     <RootLayout
       pageTitle="Available Versions"
@@ -44,13 +45,17 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
           <div>
             <h1>Available Versions</h1>
             <div>
-              <Link to={firstDoc}>Latest ({latestVersion})</Link>
+              <Link to={latestDoc.path}>Latest ({latestVersion})</Link>
             </div>
-            {availableVersions.map(version => (
-              <div key={version}>
-                <Link to={`/${locale}/${version}`}>{version}</Link>
-              </div>
-            ))}
+            <br />
+            {firstDocMap.map(
+              fdoc =>
+                fdoc.version !== 'latest' && (
+                  <div key={fdoc.version}>
+                    <Link to={fdoc.path}>{fdoc.version}</Link>
+                  </div>
+                )
+            )}
           </div>
         </Content>
       </Layout>
