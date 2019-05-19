@@ -161,7 +161,7 @@ const buildLocalesPage = async ({
     {}
   )
 
-  console.log({ versionLocaleMap })
+  // console.log({ versionLocaleMap })
   // await createRedirect({
   //   fromPath: `/locale`,
   //   toPath: `/locales`,
@@ -236,8 +236,8 @@ const buildDocsPages = async ({
 const buildIndexPage = async ({ createPage, localeSidebarTrees }) => {
   const Template = path.resolve(`${__dirname}/../src/templates/Index/index.tsx`)
   const defaultFirstDoc = lodashGet(
-    localeSidebarTrees,
-    `[${dengineConfig.defaultLocale}][0].items[0].path`
+    localeSidebarTrees[dengineConfig.defaultLocale],
+    'latest[0].items[0].path'
   )
 
   await createPage({
@@ -255,8 +255,8 @@ const buildIndexPage = async ({ createPage, localeSidebarTrees }) => {
 
   for await (locale of locales) {
     const localeFirstDoc = lodashGet(
-      localeSidebarTrees,
-      `[${locale}][0].items[0].path`
+      localeSidebarTrees[locale],
+      'latest[0].items[0].path'
     )
 
     await createPage({
@@ -281,10 +281,7 @@ module.exports = exports.createPages = async ({
     const { availableLocales, localeSidebarTrees } = await buildLocaleTrees({
       basePageData,
     })
-    console.log({
-      availableLocales,
-      localeSidebarTrees: localeSidebarTrees.jp.latest,
-    })
+
     await Promise.all([
       buildIndexPage({
         createPage,

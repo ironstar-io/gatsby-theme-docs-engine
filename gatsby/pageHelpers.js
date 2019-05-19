@@ -7,7 +7,6 @@ const constructUnorderedTree = ({
     const filteredParent = documentationOrder.filter(doco =>
       doco.items.includes(curr.title)
     )
-    console.log({ filteredParent })
 
     for (parentObj of filteredParent) {
       for (a of acc) {
