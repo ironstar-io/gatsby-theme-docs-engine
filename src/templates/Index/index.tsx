@@ -13,7 +13,13 @@ interface IndexPageProps {
 }
 
 const IndexPage: React.SFC<IndexPageProps> = ({
-  pageContext: { dengineConfig, dengineContent, firstDoc, locale },
+  pageContext: {
+    dengineConfig,
+    dengineContent,
+    firstDoc,
+    locale,
+    availableLocales,
+  },
 }) => {
   const { name } = dengineContent
 
@@ -21,6 +27,7 @@ const IndexPage: React.SFC<IndexPageProps> = ({
     <RootLayout
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
+      availableLocales={availableLocales}
       locale={locale}
       pageTitle="Hello"
       version="latest"

@@ -7,6 +7,7 @@ const lodashGet = require('lodash.get')
 const {
   splitLocaleVersion,
   buildLocaleTrees,
+  pullAvailableLocales,
   pullPreviousNext,
 } = require('./pageHelpers')
 
@@ -52,6 +53,7 @@ const buildVersionsPage = async ({
   createPage,
   createRedirect,
   basePageData,
+  availableLocales,
   localeSidebarTrees,
 }) => {
   const Template = path.resolve(
@@ -117,6 +119,7 @@ const buildVersionsPage = async ({
         dengineConfig,
         locale,
         firstDocMap,
+        availableLocales,
         dengineContent: dengineContent[locale],
         availableVersions: versionLocaleMap[locale],
       },
@@ -129,51 +132,6 @@ const buildVersionsPage = async ({
       isPermanent: true,
     })
   }
-}
-
-const buildLocalesPage = async ({
-  createPage,
-  createRedirect,
-  basePageData,
-}) => {
-  const Template = path.resolve(
-    `${__dirname}/../src/templates/Version/index.tsx`
-  )
-
-  const {
-    data: {
-      allMdx: { edges },
-    },
-  } = basePageData
-
-  const versionLocaleMap = edges.reduce(
-    (acc, { node: { fileAbsolutePath } }) => {
-      const [locale, version] = splitLocaleVersion(fileAbsolutePath)
-
-      if (acc[locale] && !acc[locale].includes(version)) {
-        acc[locale].push(version)
-      } else {
-        acc[locale] = [version]
-      }
-
-      return acc
-    },
-    {}
-  )
-
-  // console.log({ versionLocaleMap })
-  // await createRedirect({
-  //   fromPath: `/locale`,
-  //   toPath: `/locales`,
-  //   redirectInBrowser: true,
-  //   isPermanent: true,
-  // })
-
-  // await createPage({
-  //   path: '/locales',
-  //   component: Template,
-  //   context: { dengineConfig, availableVersions },
-  // })
 }
 
 const buildDocsPages = async ({
@@ -233,7 +191,11 @@ const buildDocsPages = async ({
   }
 }
 
-const buildIndexPage = async ({ createPage, localeSidebarTrees }) => {
+const buildIndexPage = async ({
+  createPage,
+  availableLocales,
+  localeSidebarTrees,
+}) => {
   const Template = path.resolve(`${__dirname}/../src/templates/Index/index.tsx`)
   const defaultFirstDoc = lodashGet(
     localeSidebarTrees[dengineConfig.defaultLocale],
@@ -264,9 +226,10 @@ const buildIndexPage = async ({ createPage, localeSidebarTrees }) => {
       component: Template,
       context: {
         dengineConfig,
+        availableLocales,
+        locale,
         dengineContent: dengineContent[locale],
         firstDoc: localeFirstDoc,
-        locale,
       },
     })
   }
@@ -278,9 +241,10 @@ module.exports = exports.createPages = async ({
 }) => {
   try {
     const basePageData = await basePageQuery(graphql)
-    const { availableLocales, localeSidebarTrees } = await buildLocaleTrees({
+    const localeSidebarTrees = await buildLocaleTrees({
       basePageData,
     })
+    const availableLocales = pullAvailableLocales()
 
     await Promise.all([
       buildIndexPage({
@@ -299,9 +263,9 @@ module.exports = exports.createPages = async ({
         createPage,
         createRedirect,
         basePageData,
+        availableLocales,
         localeSidebarTrees,
       }),
-      // buildLocalesPage({ createPage, createRedirect, basePageData }),
     ])
 
     return

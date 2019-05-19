@@ -17,6 +17,7 @@ interface RootLayoutProps {
 const RootLayout: React.SFC<RootLayoutProps> = ({
   dengineConfig,
   dengineContent,
+  availableLocales,
   pageTitle,
   version,
   locale,
@@ -24,7 +25,13 @@ const RootLayout: React.SFC<RootLayoutProps> = ({
 }: any) => {
   return (
     <SiteContext.Provider
-      value={{ ...dengineConfig, ...dengineContent, locale, version }}
+      value={{
+        ...dengineConfig,
+        ...dengineContent,
+        availableLocales,
+        locale,
+        version,
+      }}
     >
       <div
         style={{

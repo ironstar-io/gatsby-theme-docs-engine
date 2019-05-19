@@ -15,13 +15,20 @@ const defaultStyling = {
 const Navbar: React.SFC<{}> = () => {
   return (
     <SiteContext.Consumer>
-      {({ header = {}, name, version, locale }: DengineConfig) => {
+      {({
+        header = {},
+        name,
+        version,
+        locale,
+        availableLocales,
+      }: DengineConfig) => {
         const headerStyling = Object.assign(
           {},
           defaultStyling,
           header.style || {}
         )
 
+        console.log({ availableLocales })
         return (
           <div style={headerStyling} className="navbar">
             <div className="container">

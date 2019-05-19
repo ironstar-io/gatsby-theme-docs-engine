@@ -1,3 +1,5 @@
+const dengineContent = require('../dengine-content')
+
 const constructUnorderedTree = ({
   list,
   parentMap,
@@ -88,7 +90,6 @@ const buildLocaleTrees = ({ basePageData }) => {
   const localeList = edges.map(
     ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
   )
-  const availableLocales = [...new Set(localeList)]
 
   const localeSplitEdges = edges.reduce((acc, curr) => {
     const {
@@ -116,28 +117,23 @@ const buildLocaleTrees = ({ basePageData }) => {
     return acc
   }, {})
 
-  const localeSidebarTrees = Object.keys(localeSplitEdges).reduce(
-    (acc, locale) => {
-      acc[locale] = Object.keys(localeSplitEdges[locale]).reduce(
-        (a, version) => {
-          a[version] = convertToTree({
-            edges: localeSplitEdges[locale][version],
-            locale,
-            version,
-          })
-          return a
-        },
-        {}
-      )
-      return acc
-    },
-    {}
-  )
+  return Object.keys(localeSplitEdges).reduce((acc, locale) => {
+    acc[locale] = Object.keys(localeSplitEdges[locale]).reduce((a, version) => {
+      a[version] = convertToTree({
+        edges: localeSplitEdges[locale][version],
+        locale,
+        version,
+      })
+      return a
+    }, {})
+    return acc
+  }, {})
+}
 
-  return {
-    availableLocales,
-    localeSidebarTrees,
-  }
+const pullAvailableLocales = () => {
+  return Object.keys(dengineContent).map(
+    locale => dengineContent[locale].localeInfo
+  )
 }
 
 const pullPreviousNext = ({ sidebarTree, frontmatter: { parents, title } }) => {
@@ -238,5 +234,6 @@ module.exports = {
   splitLocaleVersion,
   convertToTree,
   buildLocaleTrees,
+  pullAvailableLocales,
   pullPreviousNext,
 }

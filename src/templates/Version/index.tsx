@@ -31,6 +31,7 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
       pageTitle="Available Versions"
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
+      availableLocales={availableLocales}
       locale={locale}
       version="N/A"
     >

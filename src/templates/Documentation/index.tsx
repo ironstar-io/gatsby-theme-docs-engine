@@ -31,6 +31,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
     frontmatter: { title, parents, tags },
     dengineConfig,
     dengineContent,
+    availableLocales,
     relativePath,
     body,
     locale,
@@ -40,12 +41,13 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
     version,
   },
 }) => {
-  console.log({ sidebarTree })
   const { repository } = dengineConfig
+
   return (
     <RootLayout
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
+      availableLocales={availableLocales}
       pageTitle={title}
       locale={locale}
       version={version}
