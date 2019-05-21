@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const inquirer = require('inquirer')
+const slugify = require('slugify')
+const { argv } = require('yargs')
+const fs = require('fs-extra')
+
+const { CONTENT_ROOT_NAME } = require('./constants')
+
+const getLocaleCode = async () => {
+  console.log(
+    'Content will need to be updated in dengine-content.js in the project root'
+  )
+
+  if (argv._ && argv._[0]) {
+    return slugify(argv._[0])
+  }
+
+  const { localeCode } = await inquirer.prompt({
+    type: 'input',
+    name: 'localeCode',
+    message: 'What version name are you creating?',
+  })
+
+  return slugify(localeCode)
+}
+
+const newLocale = async () => {
+  try {
+    const localeCode = await getLocaleCode()
+    const localeList = await fs.readdir(`./${CONTENT_ROOT_NAME}`)
+
+    await Promise.all([
+      fs.copy(
+        `./${CONTENT_ROOT_NAME}/${localeList[0]}/docs`,
+        `./${CONTENT_ROOT_NAME}/${localeCode}/docs`
+      ),
+    ])
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+}
+
+newLocale()
