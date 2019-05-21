@@ -28,12 +28,16 @@ const getVersionName = async () => {
 const newVersion = async () => {
   try {
     const versionName = await getVersionName()
-    await Promise.all([
-      fs.copy(
-        `./${CONTENT_ROOT_NAME}/docs`,
-        `./${CONTENT_ROOT_NAME}/${versionName}/docs`
-      ),
-    ])
+    const localeList = await fs.readdir(`./${CONTENT_ROOT_NAME}`)
+
+    await Promise.all(
+      localeList.map(locale =>
+        fs.copy(
+          `./${CONTENT_ROOT_NAME}/${locale}/docs`,
+          `./${CONTENT_ROOT_NAME}/${locale}/${versionName}/docs`
+        )
+      )
+    )
   } catch (err) {
     console.error(err)
     process.exit(1)
