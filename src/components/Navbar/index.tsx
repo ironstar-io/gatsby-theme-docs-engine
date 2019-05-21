@@ -55,10 +55,14 @@ const Navbar: React.SFC<{}> = () => {
                     </Link>
                   </div>
                 )}
-                <MenuDropdown
-                  title="Language"
-                  items={languageNavbarMap(availableLocales)}
-                />
+
+                {Array.isArray(availableLocales) &&
+                  availableLocales.length > 1 && (
+                    <MenuDropdown
+                      title="Language"
+                      items={languageNavbarMap(availableLocales)}
+                    />
+                  )}
 
                 {Array.isArray(header.links) &&
                   header.links.map(({ externalRef, internalRef, label }) => (
