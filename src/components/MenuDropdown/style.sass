@@ -1,0 +1,21 @@
+@import '../../base'
+
+.menu-dropdown
+  position: relative
+
+  button
+    border: 0
+    background: transparent
+    line-height: 1em
+    cursor: pointer
+    &:focus
+      outline: none
+
+  .menu-items
+    position: absolute
+    color: black
+    margin-left: 7px
+    &.closed
+      visibility: hidden
+    &.open
+      visibility: visible

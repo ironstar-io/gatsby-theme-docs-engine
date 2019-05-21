@@ -207,6 +207,7 @@ const buildIndexPage = async ({
     component: Template,
     context: {
       dengineConfig,
+      availableLocales,
       dengineContent: dengineContent[dengineConfig.defaultLocale],
       locale: dengineConfig.defaultLocale,
       firstDoc: defaultFirstDoc,

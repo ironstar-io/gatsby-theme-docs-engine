@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
+
+import MenuDropdown from '../MenuDropdown'
+
 import SiteContext from '../../context/site'
 
 import './style.sass'
@@ -11,6 +14,14 @@ const defaultStyling = {
     'linear-gradient(90deg,#3f8bfd,#483bec),linear-gradient(90deg,#483bec,#483bec)',
   color: 'white',
 }
+
+const languageNavbarMap = (
+  availableLocales: Array<{ code: string; name: string }> = []
+) =>
+  availableLocales.map(({ code, name }) => ({
+    name,
+    internalLinkRef: `/${code}`,
+  }))
 
 const Navbar: React.SFC<{}> = () => {
   return (
@@ -28,7 +39,6 @@ const Navbar: React.SFC<{}> = () => {
           header.style || {}
         )
 
-        console.log({ availableLocales })
         return (
           <div style={headerStyling} className="navbar">
             <div className="container">
@@ -45,6 +55,10 @@ const Navbar: React.SFC<{}> = () => {
                     </Link>
                   </div>
                 )}
+                <MenuDropdown
+                  title="Language"
+                  items={languageNavbarMap(availableLocales)}
+                />
 
                 {Array.isArray(header.links) &&
                   header.links.map(({ externalRef, internalRef, label }) => (
