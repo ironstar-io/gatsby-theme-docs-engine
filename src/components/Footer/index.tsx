@@ -27,7 +27,7 @@ const Footer: React.SFC<{}> = () => (
           <div className="container">
             {footer.brandmark && (
               <div className="brandmark">
-                <img src="/assets/brandmark.svg" alt="Ironstar" />
+                <img src={footer.brandmark} alt="Brandmark" />
               </div>
             )}
             <div className="row">
@@ -51,18 +51,25 @@ const Footer: React.SFC<{}> = () => (
                     )}
                   </div>
                 ))}
+
               <div className="contact">
-                {footer.phone && <a href="tel:+61399824413">+61 3 9982 4413</a>}
-                {footer.email && (
-                  <a href="mailto:hello@ironstar.io">hello@ironstar.io</a>
-                )}
+                <div className="left">
+                  {footer.addressBlock && (
+                    <div
+                      className="address"
+                      dangerouslySetInnerHTML={{ __html: footer.addressBlock }}
+                    />
+                  )}
+                </div>
+                <div className="right">
+                  {footer.phone && (
+                    <a href={`tel:${footer.phone}`}>Phone: {footer.phone}</a>
+                  )}
+                  {footer.email && (
+                    <a href={`mailto:${footer.email}`}>Email: {footer.email}</a>
+                  )}
+                </div>
               </div>
-              {footer.addressBlock && (
-                <div
-                  className="address"
-                  dangerouslySetInnerHTML={{ __html: footer.addressBlock }}
-                />
-              )}
               <div className="social">
                 {Array.isArray(footer.socials) &&
                   footer.socials.map(({ label, url }) => (
@@ -78,14 +85,26 @@ const Footer: React.SFC<{}> = () => (
                   ))}
               </div>
               {footer.copyright && (
-                <div className="copyright">
-                  &copy; 2018 Ironstar Hosting Services. Tokaido is a registered
-                  trademark of Ironstar Hosting Services.
+                <div className="copyright">{footer.copyright}</div>
+              )}
+              {Array.isArray(footer.policy) && (
+                <div className="policy-links">
+                  {footer.policy.map(({ name, externalRef, internalRef }) => {
+                    if (internalRef) {
+                      return (
+                        <Link key={name} to={internalRef}>
+                          {name}
+                        </Link>
+                      )
+                    }
+                    return (
+                      <a key={name} href={externalRef}>
+                        {name}
+                      </a>
+                    )
+                  })}
                 </div>
               )}
-              {/* <a className="secondary" href="http://ironstar.io">
-                Privacy
-              </a> */}
             </div>
           </div>
         </footer>

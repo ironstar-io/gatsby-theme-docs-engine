@@ -10,8 +10,8 @@ interface MenuDropdownProps {
   title: string
   items: Array<{
     name: string
-    internalLinkRef: string
-    externalLinkRef: string
+    internalLinkRef?: string
+    externalLinkRef?: string
   }>
 }
 
@@ -31,7 +31,7 @@ const MenuDropdown: React.FC<MenuDropdownProps> = ({
       <div className={`menu-items ${menuState}`}>
         {Array.isArray(items) &&
           items.map(({ name, internalLinkRef, externalLinkRef }) => (
-            <div className="menu-item">
+            <div key={name} className="menu-item">
               {internalLinkRef && (
                 <Link to={internalLinkRef} aria-label={name}>
                   {name}

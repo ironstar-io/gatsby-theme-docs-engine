@@ -34,26 +34,31 @@ export interface DengineConfig {
       label: string
     }>
   }
-  footer: {
-    style: {
+  footer?: {
+    style?: {
       backgroundImage: string
       color: string
     }
-    icon: string
-    copyright: string
-    brandmark: string
-    links: Array<{
+    icon?: string
+    copyright?: string
+    brandmark?: string
+    links?: Array<{
       externalRef?: string
       internalRef?: string
       label: string
     }>
-    phone: string
-    email: string
+    phone?: string
+    email?: string
     // HTML OK here
-    addressBlock: string
-    socials: Array<{
+    addressBlock?: string
+    socials?: Array<{
       label: string
       url: string
+    }>
+    policy?: Array<{
+      name: string
+      internalRef?: string
+      externalRef?: string
     }>
   }
 }

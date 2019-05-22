@@ -35,6 +35,7 @@ const dengineContent = {
       ],
     },
     footer: {
+      brandmark: '/assets/brandmark.svg',
       links: [
         { label: 'Ironstar', url: 'https://ironstar.io' },
         { label: 'Tokaido', url: 'https://tokaido.io' },
@@ -52,8 +53,18 @@ const dengineContent = {
         },
         { label: 'Twitter', url: 'http://twitter.com/ironstar-io' },
       ],
+      policy: [
+        {
+          name: 'Privacy',
+          externalRef: 'https://ironstar.io/privacy',
+        },
+        {
+          name: 'Terms & Conditions',
+          externalRef: 'https://ironstar.io/terms-conditions',
+        },
+      ],
       // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-      copyright: `Copyright © ${new Date().getFullYear()} Ironstar Pty Ltd`,
+      copyright: `© ${new Date().getFullYear()} Ironstar Pty Ltd`,
     },
   },
   jp: {
@@ -92,6 +103,7 @@ const dengineContent = {
       ],
     },
     footer: {
+      brandmark: '/assets/brandmark.svg',
       links: [
         { label: 'Ironstar', url: 'https://ironstar.io' },
         { label: 'Tokaido', url: 'https://tokaido.io' },
@@ -108,6 +120,16 @@ const dengineContent = {
           url: 'https://www.youtube.com/channel/UCZSfGmHSFLRqBRVIaxH9QXw',
         },
         { label: 'Twitter', url: 'http://twitter.com/ironstar-io' },
+      ],
+      policy: [
+        {
+          name: 'Privacy',
+          externalRef: 'https://ironstar.io/privacy',
+        },
+        {
+          name: 'Terms & Conditions',
+          externalRef: 'https://ironstar.io/terms-conditions',
+        },
       ],
       // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
       copyright: `Copyright © ${new Date().getFullYear()} Ironstar Pty Ltd`,
