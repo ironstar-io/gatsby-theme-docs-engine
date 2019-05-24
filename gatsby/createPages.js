@@ -1,8 +1,9 @@
 const replacePath = require('./utils')
 const path = require('path')
-const dengineConfig = require('../dengine-config')
-const dengineContent = require('../dengine-content')
 const lodashGet = require('lodash.get')
+
+const defaultDengineConfig = require('../dengine-config')
+const defaultDengineContent = require('../dengine-content')
 
 const {
   splitLocaleVersion,
@@ -55,6 +56,8 @@ const buildVersionsPage = async ({
   basePageData,
   availableLocales,
   localeSidebarTrees,
+  dengineConfig,
+  dengineContent,
 }) => {
   const Template = path.resolve(
     `${__dirname}/../src/templates/Version/index.tsx`
@@ -139,6 +142,8 @@ const buildDocsPages = async ({
   basePageData,
   availableLocales,
   localeSidebarTrees,
+  dengineConfig,
+  dengineContent,
 }) => {
   const Template = path.resolve(
     `${__dirname}/../src/templates/Documentation/index.tsx`
@@ -195,6 +200,8 @@ const buildIndexPage = async ({
   createPage,
   availableLocales,
   localeSidebarTrees,
+  dengineConfig,
+  dengineContent,
 }) => {
   const Template = path.resolve(`${__dirname}/../src/templates/Index/index.tsx`)
   const defaultFirstDoc = lodashGet(
@@ -236,16 +243,19 @@ const buildIndexPage = async ({
   }
 }
 
-module.exports = exports.createPages = async ({
-  actions: { createPage, createRedirect },
-  graphql,
-}) => {
+module.exports = exports.createPages = async (
+  { actions: { createPage, createRedirect }, graphql },
+  {
+    dengineContent = defaultDengineContent,
+    dengineConfig = defaultDengineConfig,
+  }
+) => {
   try {
     const basePageData = await basePageQuery(graphql)
     const localeSidebarTrees = await buildLocaleTrees({
       basePageData,
     })
-    const availableLocales = pullAvailableLocales()
+    const availableLocales = pullAvailableLocales(dengineContent)
 
     await Promise.all([
       buildIndexPage({
@@ -253,12 +263,16 @@ module.exports = exports.createPages = async ({
         basePageData,
         availableLocales,
         localeSidebarTrees,
+        dengineContent,
+        dengineConfig,
       }),
       buildDocsPages({
         createPage,
         basePageData,
         availableLocales,
         localeSidebarTrees,
+        dengineContent,
+        dengineConfig,
       }),
       buildVersionsPage({
         createPage,
@@ -266,6 +280,8 @@ module.exports = exports.createPages = async ({
         basePageData,
         availableLocales,
         localeSidebarTrees,
+        dengineContent,
+        dengineConfig,
       }),
     ])
 

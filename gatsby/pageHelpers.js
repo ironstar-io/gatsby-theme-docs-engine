@@ -1,5 +1,3 @@
-const dengineContent = require('../dengine-content')
-
 const constructUnorderedTree = ({
   list,
   parentMap,
@@ -60,7 +58,7 @@ const convertToTree = ({ edges, locale, version }) => {
     }
   })
 
-  const { documentationOrder } = require(`../__content/${locale}${
+  const { documentationOrder } = require(`${process.cwd()}/__content/${locale}${
     version === 'latest' ? '' : `/${version}`
   }/docs/config.js`)
 
@@ -130,7 +128,7 @@ const buildLocaleTrees = ({ basePageData }) => {
   }, {})
 }
 
-const pullAvailableLocales = () => {
+const pullAvailableLocales = dengineContent => {
   return Object.keys(dengineContent).map(
     locale => dengineContent[locale].localeInfo
   )

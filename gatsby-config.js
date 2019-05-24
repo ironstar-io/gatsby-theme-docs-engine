@@ -3,9 +3,22 @@ module.exports = {
     title: 'Gatsby Ant-Design Documentation Starter',
   },
   plugins: [
-    `gatsby-plugin-typescript`,
+    'gatsby-plugin-typescript',
     'gatsby-plugin-sass',
     'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: `${__dirname}/src/pages`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: '__content',
+        path: '__content',
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -19,13 +32,6 @@ module.exports = {
         typeName: `MenuItems`, // a fixed string
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `content`,
-        path: `${__dirname}/__content`,
-      },
-    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
@@ -37,7 +43,7 @@ module.exports = {
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: require.resolve('./src/images/gatsby-icon.png'), // This path is relative to the root of the site.
       },
     },
     {
