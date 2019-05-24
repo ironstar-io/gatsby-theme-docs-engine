@@ -20,6 +20,7 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
     dengineConfig,
     dengineContent,
     availableVersions,
+    availableLocales,
     locale,
     firstDocMap,
   },
