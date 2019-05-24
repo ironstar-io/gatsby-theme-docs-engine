@@ -12,23 +12,6 @@ const startDev = async () => {
         `./node_modules/@ironstar/docs-engine/template/${CONTENT_ROOT_NAME}`,
         `./${CONTENT_ROOT_NAME}`
       ),
-      fs.copy('./node_modules/@ironstar/docs-engine/template/src', './src'),
-      fs.copy(
-        './node_modules/@ironstar/docs-engine/template/gatsby-config.js',
-        './gatsby-config.js'
-      ),
-      fs.copy(
-        './node_modules/@ironstar/docs-engine/template/gatsby-node.js',
-        './gatsby-node.js'
-      ),
-      fs.copy(
-        './node_modules/@ironstar/docs-engine/template/gatsby-browser.js',
-        './gatsby-browser.js'
-      ),
-      fs.copy(
-        './node_modules/@ironstar/docs-engine/template/dengine-config.js',
-        './dengine-config.js'
-      ),
     ])
   } catch (err) {
     console.error(err)
