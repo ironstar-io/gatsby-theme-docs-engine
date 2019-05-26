@@ -7,6 +7,8 @@ import SiteContext from '../context/site'
 
 import { DengineConfig } from '../types'
 
+import '../styles/global.sass'
+
 interface RootLayoutProps {
   dengineConfig: DengineConfig
   pageTitle: string
