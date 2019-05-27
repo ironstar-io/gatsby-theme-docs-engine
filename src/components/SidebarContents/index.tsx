@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Menu from 'antd/lib/menu'
-import 'antd/lib/menu/style/css'
 import { pathPrefix } from '../../../gatsby-config'
 
-const SubMenu = Menu.SubMenu
+import './style.sass'
 
 import { SidebarTreeObject } from '../../types'
 
@@ -23,15 +21,13 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
       : undefined
 
   return (
-    <Menu
-      mode="inline"
-      style={{ minWidth: 180, height: '100%', borderRight: 0 }}
+    <section
+      className="side-menu"
       defaultOpenKeys={parents}
       selectedKeys={keys}
     >
       {Array.isArray(tree) &&
         tree.map(branch => {
-          console.log({ branch })
           if (!branch || !Array.isArray(branch.items)) {
             return null
           }
@@ -40,11 +36,11 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
             return branch.items.map(twig => {
               if (twig) {
                 return (
-                  <Menu.Item key={twig.path}>
+                  <div className="menu-item" key={twig.path}>
                     <Link to={twig.path}>
                       <div>{twig.title}</div>
                     </Link>
-                  </Menu.Item>
+                  </div>
                 )
               }
 
@@ -53,27 +49,25 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
           }
 
           return (
-            <SubMenu
-              key={branch.parent}
-              title={<span style={{ fontWeight: 900 }}>{branch.parent}</span>}
-            >
+            <div className="menu-parent-wrap" key={branch.parent}>
+              <div className="menu-parent">{branch.parent}</div>
               {branch.items.map(twig => {
                 if (twig) {
                   return (
-                    <Menu.Item key={twig.path}>
+                    <div className="submenu-item" key={twig.path}>
                       <Link to={twig.path}>
                         <div>{twig.title}</div>
                       </Link>
-                    </Menu.Item>
+                    </div>
                   )
                 }
 
                 return null
               })}
-            </SubMenu>
+            </div>
           )
         })}
-    </Menu>
+    </section>
   )
 }
 

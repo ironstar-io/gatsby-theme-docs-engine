@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import RootLayout from '../../layout/Root'
-import { Layout } from 'antd'
-const { Content } = Layout
 
 import './style.sass'
 
@@ -36,8 +34,8 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
       locale={locale}
       version="N/A"
     >
-      <Layout className="version-page">
-        <Content
+      <div className="version-page">
+        <div
           style={{
             background: '#fff',
             padding: 24,
@@ -59,8 +57,8 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
                 )
             )}
           </div>
-        </Content>
-      </Layout>
+        </div>
+      </div>
     </RootLayout>
   )
 }

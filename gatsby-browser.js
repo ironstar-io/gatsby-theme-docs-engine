@@ -1,3 +1,4 @@
 // gatsby-browser.js
 require('prismjs/themes/prism-coy.css')
-require('antd/dist/antd.css')
+require('normalize.css')
+require('./src/styles/global.sass')

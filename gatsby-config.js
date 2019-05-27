@@ -7,6 +7,12 @@ module.exports = {
     'gatsby-plugin-sass',
     'gatsby-plugin-react-helmet',
     {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Roboto`],
+      },
+    },
+    {
       resolve: 'gatsby-plugin-page-creator',
       options: {
         path: `${__dirname}/src/pages`,
