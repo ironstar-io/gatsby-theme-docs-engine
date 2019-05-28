@@ -1,8 +1,6 @@
 import React from 'react'
-import Anchor from 'antd/lib/anchor'
-// import 'antd/lib/anchor/style/css'
 
-const { Link } = Anchor
+import './style.sass'
 
 const filterAnchorDetails = anchors => {
   let last_depth = 0
@@ -46,16 +44,21 @@ export function TableOfContents() {
     data.map(item => {
       if (item.children.length > 0) {
         return (
-          <Link href={item.href} title={item.title} key={item.href}>
+          <React.Fragment>
+            <a href={item.href} key={item.href}>
+              {item.title}
+            </a>
             {loop(item.children)}
-          </Link>
+          </React.Fragment>
         )
       }
 
-      return <Link href={item.href} title={item.title} key={item.href} />
+      return (
+        <a href={item.href} key={item.href}>
+          {item.title}
+        </a>
+      )
     })
 
-  return (
-    <Anchor style={{ margin: '50px 50px 0px 0px' }}>{loop(anchors)}</Anchor>
-  )
+  return <div className="table-of-contents">{loop(anchors)}</div>
 }
