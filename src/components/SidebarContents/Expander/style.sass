@@ -1,0 +1,46 @@
+@import '../../../base'
+
+.menu-parent-wrap
+
+  .menu-parent
+    font-weight: bold
+    cursor: pointer
+
+  .menu-parent,
+  .submenu-item
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .menu-parent
+    line-height: 2.5em
+    &.closed:after
+      content: ''
+      margin-left: 10px
+      margin-bottom: 2px
+      border-style: solid
+      border-width: 0 1px 1px 0
+      display: inline-block
+      padding: 3px
+      transform: rotate(45deg)
+    &.open:after
+      content: ''
+      margin-left: 10px
+      margin-bottom: 2px
+      border-style: solid
+      border-width: 0 1px 1px 0
+      display: inline-block
+      padding: 3px
+      transform: rotate(225deg)
+
+  .submenu-wrap
+    transition: transform 300ms height 500ms
+    &.closed
+      transform: scaleY(0)
+      height: 0
+    &.open
+      transform: scaleY(1)
+      height: auto
+
+  .submenu-item
+    margin-left: 10px
+    line-height: 2.5em

@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { pathPrefix } from '../../../gatsby-config'
 
+import Expander from './Expander'
+
 import './style.sass'
 
 import { SidebarTreeObject } from '../../types'
@@ -21,11 +23,7 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
       : undefined
 
   return (
-    <section
-      className="side-menu"
-      defaultOpenKeys={parents}
-      selectedKeys={keys}
-    >
+    <div className="side-menu" defaultOpenKeys={parents} selectedKeys={keys}>
       {Array.isArray(tree) &&
         tree.map(branch => {
           if (!branch || !Array.isArray(branch.items)) {
@@ -36,7 +34,7 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
             return branch.items.map(twig => {
               if (twig) {
                 return (
-                  <div className="menu-item" key={twig.path}>
+                  <div className="root-menu-item" key={twig.path}>
                     <Link to={twig.path}>
                       <div>{twig.title}</div>
                     </Link>
@@ -48,26 +46,9 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
             })
           }
 
-          return (
-            <div className="menu-parent-wrap" key={branch.parent}>
-              <div className="menu-parent">{branch.parent}</div>
-              {branch.items.map(twig => {
-                if (twig) {
-                  return (
-                    <div className="submenu-item" key={twig.path}>
-                      <Link to={twig.path}>
-                        <div>{twig.title}</div>
-                      </Link>
-                    </div>
-                  )
-                }
-
-                return null
-              })}
-            </div>
-          )
+          return <Expander branch={branch} />
         })}
-    </section>
+    </div>
   )
 }
 

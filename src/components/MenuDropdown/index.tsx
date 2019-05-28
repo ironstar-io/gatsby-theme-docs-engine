@@ -27,7 +27,7 @@ const MenuDropdown: React.FC<MenuDropdownProps> = ({
 
   return (
     <div className="menu-dropdown">
-      <button onClick={toggleMenuState}>{title}</button>
+      <button className="trigger" onClick={toggleMenuState}>{title}</button>
       <div className={`menu-items ${menuState}`}>
         {Array.isArray(items) &&
           items.map(({ name, internalLinkRef, externalLinkRef }) => (
