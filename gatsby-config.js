@@ -49,7 +49,7 @@ module.exports = {
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: require.resolve('./src/images/gatsby-icon.png'), // This path is relative to the root of the site.
+        // icon: require.resolve('./src/images/gatsby-icon.png'), // This path is relative to the root of the site.
       },
     },
     {
@@ -100,5 +100,5 @@ module.exports = {
     // 'gatsby-plugin-offline',
   ],
   /// this must match the path your webpage is displayed from
-  pathPrefix: '/gatsby-antd-docs',
+  pathPrefix: '/',
 }

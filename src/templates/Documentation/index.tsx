@@ -2,7 +2,7 @@ import React from 'react'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import RootLayout from '../../layout/Root'
 import SidebarContents from '../../components/SidebarContents'
-import { TableOfContents } from '../../components/TableOfContents'
+import TableOfContents from '../../components/TableOfContents'
 import PreviousNext from '../../components/PreviousNext'
 
 import './style.sass'
@@ -42,7 +42,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   },
 }) => {
   const { repository } = dengineConfig
-
+  console.log({ previous, next })
   return (
     <RootLayout
       dengineConfig={dengineConfig}

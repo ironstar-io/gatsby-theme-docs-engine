@@ -23,7 +23,10 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
       : undefined
 
   return (
-    <div className="side-menu" defaultOpenKeys={parents} selectedKeys={keys}>
+    <div
+      className="side-menu"
+      //  defaultOpenKeys={parents} selectedKeys={keys}
+    >
       {Array.isArray(tree) &&
         tree.map(branch => {
           if (!branch || !Array.isArray(branch.items)) {
@@ -46,7 +49,7 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
             })
           }
 
-          return <Expander branch={branch} />
+          return <Expander key={branch.parent} branch={branch} />
         })}
     </div>
   )

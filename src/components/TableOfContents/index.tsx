@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 
 import './style.sass'
 
-const filterAnchorDetails = anchors => {
+const filterAnchorDetails = (anchors: any) => {
   let last_depth = 0
-  anchors = [].slice.call(anchors).map(anchor => {
+  anchors = [].slice.call(anchors).map((anchor: any) => {
     let depth = parseInt(anchor.parentElement.nodeName[1])
     if (last_depth !== 0 && depth > last_depth) depth = last_depth + 1
     last_depth = depth
@@ -19,7 +19,7 @@ const filterAnchorDetails = anchors => {
   return anchors
 }
 
-const constructTree = list => {
+const constructTree = (list: Array<any>) => {
   let deleteNode = []
   for (let i = 0; i < list.length; i++) {
     for (let j = i + 1; j < list.length; j++) {
@@ -32,22 +32,26 @@ const constructTree = list => {
   deleteNode.sort((a, b) => b - a).forEach(index => list.splice(index, 1))
 }
 
-export function TableOfContents() {
-  const [anchors, setAnchors] = React.useState<any[]>([])
+interface AnchorItem {
+  children: Array<AnchorItem>
+  href: string
+  title: string
+}
 
-  React.useLayoutEffect(() => {
+const TableOfContents: React.FC = () => {
+  const [anchors, setAnchors] = useState([])
+
+  useLayoutEffect(() => {
     const anchors = document.getElementsByClassName('post-toc-anchor')
     setAnchors(filterAnchorDetails(anchors))
   }, [])
 
-  const loop = data =>
+  const loop = (data: Array<AnchorItem>) =>
     data.map(item => {
       if (item.children.length > 0) {
         return (
-          <React.Fragment>
-            <a href={item.href} key={item.href}>
-              {item.title}
-            </a>
+          <React.Fragment key={item.href}>
+            <a href={item.href}>{item.title}</a>
             {loop(item.children)}
           </React.Fragment>
         )
@@ -62,3 +66,5 @@ export function TableOfContents() {
 
   return <div className="table-of-contents">{loop(anchors)}</div>
 }
+
+export default TableOfContents
