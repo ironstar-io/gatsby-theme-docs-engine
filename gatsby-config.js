@@ -87,7 +87,7 @@ module.exports = {
             options: {
               classPrefix: 'language-',
               inlineCodeMarker: null,
-              showLineNumbers: true,
+              showLineNumbers: false,
               noInlineHighlight: false,
             },
           },
