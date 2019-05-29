@@ -30,9 +30,6 @@ const basePageQuery = async graphql => {
             }
             frontmatter {
               title
-              root
-              parents
-              tags
             }
             code {
               body
@@ -171,7 +168,7 @@ const buildDocsPages = async ({
 
     const { previous, next } = pullPreviousNext({
       sidebarTree: localeSidebarTrees[locale][version],
-      frontmatter,
+      title: frontmatter.title,
     })
 
     createPage({
