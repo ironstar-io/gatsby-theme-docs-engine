@@ -13,15 +13,7 @@ interface SidebarContentsProps {
   parents: string[]
 }
 
-const SidebarContents: React.SFC<SidebarContentsProps> = ({
-  tree,
-  parents,
-}) => {
-  const keys =
-    typeof window !== 'undefined'
-      ? [pathPrefix + window.location.pathname]
-      : undefined
-
+const SidebarContents: React.SFC<SidebarContentsProps> = ({ tree, parent }) => {
   return (
     <div
       className="side-menu"
@@ -49,7 +41,13 @@ const SidebarContents: React.SFC<SidebarContentsProps> = ({
             })
           }
 
-          return <Expander key={branch.parent} branch={branch} />
+          return (
+            <Expander
+              key={branch.parent}
+              branch={branch}
+              currentParent={parent}
+            />
+          )
         })}
     </div>
   )

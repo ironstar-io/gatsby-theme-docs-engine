@@ -4,8 +4,9 @@ import { Link } from 'gatsby'
 import './style.sass'
 
 interface ExpanderProps {
+  currentParent: string
   branch: {
-    parent: string[]
+    parent: string
     items: Array<{
       path: string
       title: string
@@ -16,8 +17,10 @@ interface ExpanderProps {
 const CLOSED = 'closed'
 const OPEN = 'open'
 
-const Expander: React.SFC<ExpanderProps> = ({ branch }) => {
-  const [menuState, updateMenuState] = useState(CLOSED)
+const Expander: React.SFC<ExpanderProps> = ({ branch, currentParent }) => {
+  const [menuState, updateMenuState] = useState(
+    currentParent === branch.parent ? OPEN : CLOSED
+  )
 
   const toggleMenuState = () => {
     return updateMenuState(menuState === CLOSED ? OPEN : CLOSED)

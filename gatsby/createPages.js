@@ -30,6 +30,7 @@ const basePageQuery = async graphql => {
             }
             frontmatter {
               title
+              tags
             }
             code {
               body
@@ -166,8 +167,14 @@ const buildDocsPages = async ({
     const [locale, version] = splitLocaleVersion(fileAbsolutePath)
     const splitPath = fileAbsolutePath.split('__content')[1]
 
+    const sidebarTree = localeSidebarTrees[locale][version]
+    const residingBranch = sidebarTree.find(({ items }) =>
+      items.find(i => i.title === frontmatter.title)
+    )
+
     const { previous, next } = pullPreviousNext({
-      sidebarTree: localeSidebarTrees[locale][version],
+      sidebarTree,
+      targetObj: residingBranch,
       title: frontmatter.title,
     })
 
@@ -179,7 +186,8 @@ const buildDocsPages = async ({
         dengineContent:
           dengineContent[locale] || dengineContent[dengineConfig.defaultLocale],
         relativePath: splitPath ? `/__content${splitPath}` : null,
-        sidebarTree: localeSidebarTrees[locale][version],
+        parent: residingBranch.parent,
+        sidebarTree,
         availableLocales,
         id,
         body,

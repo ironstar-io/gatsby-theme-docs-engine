@@ -134,11 +134,7 @@ const pullAvailableLocales = dengineContent => {
   )
 }
 
-const pullPreviousNext = ({ sidebarTree, title }) => {
-  const targetObj = sidebarTree.find(({ items }) =>
-    items.find(i => i.title === title)
-  )
-
+const pullPreviousNext = ({ sidebarTree, targetObj, title }) => {
   if (!targetObj) {
     return { previous: null, next: null }
   }

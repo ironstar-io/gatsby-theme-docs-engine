@@ -28,11 +28,12 @@ interface DocumentationPageTemplateProps {
 
 const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   pageContext: {
-    frontmatter: { title, parents, tags },
+    frontmatter: { title, tags },
     dengineConfig,
     dengineContent,
     availableLocales,
     relativePath,
+    parent,
     body,
     locale,
     sidebarTree,
@@ -42,7 +43,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
   },
 }) => {
   const { repository } = dengineConfig
-  console.log({ previous, next })
+
   return (
     <RootLayout
       dengineConfig={dengineConfig}
@@ -54,7 +55,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
     >
       <div className="documentation-page main-wrapper">
         <div>
-          <SidebarContents tree={sidebarTree} parents={parents} />
+          <SidebarContents tree={sidebarTree} parent={parent} />
         </div>
 
         <div className="content-wrapper">
