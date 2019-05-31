@@ -43,8 +43,10 @@ const Navbar: React.SFC<{}> = () => {
           <div style={headerStyling} className="navbar">
             <div className="container">
               <div className="left">
-                <div>
-                  <Link to="/">{name}</Link>
+                <div className="main-title">
+                  <Link to="/">
+                    {header.logo ? <img src={header.logo} /> : name}
+                  </Link>
                 </div>
               </div>
               <div className="right">

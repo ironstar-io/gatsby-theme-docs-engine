@@ -35,7 +35,6 @@ const IndexPage: React.SFC<IndexPageProps> = ({
       <div className="index-page">
         <div className="hero-banner">
           <h1>{name}</h1>
-          <h2>An extensible engine for powering your docs</h2>
 
           <Button ariaLabel="Get Started" linkRef={firstDoc}>
             Get Started
