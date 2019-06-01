@@ -1,5 +1,5 @@
 {
-  "name": "@ironstar/gatsby-theme-docs-engine",
+  "name": "gatsby-theme-docs-engine",
   "description": "The UI and business logic layer for Ironstar documentation",
   "version": "0.0.1",
   "author": "Ironstar Team",
@@ -74,5 +74,15 @@
     "/gatsby",
     "/src",
     "/bin"
-  ]
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironstar-io/docs-engine.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ironstar-io/docs-engine/issues"
+  },
+  "homepage": "https://github.com/ironstar-io/docs-engine#readme"
 }
