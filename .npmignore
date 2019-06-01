@@ -2,9 +2,6 @@
 ./node_modules
 ./public
 ./.prettierrc
-./gatsby-browser.js
-./gatsby-config.js
-./gatsby-node.js
 ./tsconfig.json
 ./tslint.json
 ./yarn.lock
