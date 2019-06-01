@@ -35,28 +35,20 @@ const VersionPageTemplate: React.SFC<VersionPageTemplateProps> = ({
       version="N/A"
     >
       <div className="version-page">
-        <div
-          style={{
-            background: '#fff',
-            padding: 24,
-            margin: 0,
-          }}
-        >
+        <div className="container">
+          <h1>Available Versions</h1>
           <div>
-            <h1>Available Versions</h1>
-            <div>
-              <Link to={latestDoc.path}>Latest ({latestVersion})</Link>
-            </div>
-            <br />
-            {firstDocMap.map(
-              fdoc =>
-                fdoc.version !== 'latest' && (
-                  <div key={fdoc.version}>
-                    <Link to={fdoc.path}>{fdoc.version}</Link>
-                  </div>
-                )
-            )}
+            <Link to={latestDoc.path}>Latest ({latestVersion})</Link>
           </div>
+          <br />
+          {firstDocMap.map(
+            fdoc =>
+              fdoc.version !== 'latest' && (
+                <div key={fdoc.version}>
+                  <Link to={fdoc.path}>{fdoc.version}</Link>
+                </div>
+              )
+          )}
         </div>
       </div>
     </RootLayout>
