@@ -1,7 +1,7 @@
 {
   "name": "gatsby-theme-docs-engine",
   "description": "The UI and business logic layer for Ironstar documentation",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "author": "Ironstar Team",
   "dependencies": {
     "@babel/core": "^7.4.4",
@@ -36,8 +36,6 @@
     "normalize.css": "^8.0.1",
     "prismjs": "1.16.0",
     "prop-types": "^15.7.2",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
     "react-helmet": "5.2.1",
     "react-responsive": "6.1.2",
     "react-sizeme": "2.6.7",
@@ -63,10 +61,14 @@
     "@types/react-dom": "16.8.4",
     "@types/react-helmet": "5.0.8",
     "gatsby": "^2.4.2",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "prettier": "1.17.0"
   },
   "peerDependencies": {
-    "gatsby": "^2.4.2"
+    "gatsby": "^2.8.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "bin": {
     "docs-init": "./bin/init"
@@ -74,7 +76,13 @@
   "files": [
     "/gatsby",
     "/src",
-    "/bin"
+    "/bin",
+    "dengine-config.js",
+    "dengine-content.js",
+    "gatsby-config.js",
+    "gatsby-browser.js",
+    "gatsby-node.js",
+    "index.js"
   ],
   "main": "index.js",
   "repository": {
