@@ -204,6 +204,26 @@ const pullPreviousNext = ({ sidebarTree, targetObj, title }) => {
   return findSecondCut(prevNextFirstCut)
 }
 
+const buildVersionLocaleMap = (basePageData = {}) => {
+  const {
+    data: {
+      allMdx: { edges },
+    },
+  } = basePageData
+
+  return edges.reduce((acc, { node: { fileAbsolutePath } }) => {
+    const [locale, version] = splitLocaleVersion(fileAbsolutePath)
+
+    if (acc[locale] && !acc[locale].includes(version)) {
+      acc[locale].push(version)
+    } else {
+      acc[locale] = [version]
+    }
+
+    return acc
+  }, {})
+}
+
 const splitLocaleVersion = str => {
   const [locale, version] = str
     .split('/__content')[1]
@@ -220,4 +240,5 @@ module.exports = {
   buildLocaleTrees,
   pullAvailableLocales,
   pullPreviousNext,
+  buildVersionLocaleMap,
 }

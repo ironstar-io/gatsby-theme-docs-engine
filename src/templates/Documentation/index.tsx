@@ -7,11 +7,17 @@ import PreviousNext from '../../components/PreviousNext'
 
 import './style.sass'
 
-import { DengineConfig, DocsMeta, SidebarTreeObject } from '../../types'
+import {
+  DengineConfig,
+  DengineContent,
+  DocsMeta,
+  SidebarTreeObject,
+} from '../../types'
 
 interface DocumentationPageTemplateProps {
   pageContext: {
     dengineConfig: DengineConfig
+    dengineContent: DengineContent
     sidebarTree: Array<SidebarTreeObject>
     previous: DocsMeta
     next: DocsMeta
@@ -21,8 +27,17 @@ interface DocumentationPageTemplateProps {
       tags: string[]
     }
     body: string
-    version: string
     relativePath: string
+    firstDoc: string
+    pageTitle: string
+    parent: string
+    version: string
+    availableLocales: Array<{
+      code: string
+      name: string
+    }>
+    availableVersions: string[]
+    locale: string
   }
 }
 
@@ -32,6 +47,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
     dengineConfig,
     dengineContent,
     availableLocales,
+    availableVersions,
     relativePath,
     parent,
     body,
@@ -49,14 +65,13 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
       availableLocales={availableLocales}
+      availableVersions={availableVersions}
       pageTitle={title}
       locale={locale}
       version={version}
     >
       <div className="documentation-page main-wrapper">
-        <div>
-          <SidebarContents tree={sidebarTree} parent={parent} />
-        </div>
+        <SidebarContents tree={sidebarTree} parent={parent} />
 
         <div className="content-wrapper">
           <div className="content-body">

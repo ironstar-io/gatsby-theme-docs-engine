@@ -32,6 +32,7 @@ const Navbar: React.SFC<{}> = () => {
         version,
         locale,
         availableLocales,
+        availableVersions,
       }: DengineConfig) => {
         const headerStyling = Object.assign(
           {},
@@ -50,13 +51,15 @@ const Navbar: React.SFC<{}> = () => {
                 </div>
               </div>
               <div className="right">
-                {version !== 'N/A' && (
-                  <div className="version-button">
-                    <Link to={`/${locale}/versions`}>
-                      {version || 'latest'}
-                    </Link>
-                  </div>
-                )}
+                {version !== 'N/A' &&
+                  Array.isArray(availableVersions) &&
+                  availableVersions.length > 1 && (
+                    <div className="version-button">
+                      <Link to={`/${locale}/versions`}>
+                        {version || 'latest'}
+                      </Link>
+                    </div>
+                  )}
 
                 {Array.isArray(availableLocales) &&
                   availableLocales.length > 1 && (

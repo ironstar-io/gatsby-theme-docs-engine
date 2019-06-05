@@ -4,11 +4,21 @@ import Button from '../../components/Button'
 
 import './style.sass'
 
-import { DengineConfig } from '../../types'
+import { DengineConfig, DengineContent } from '../../types'
 
 interface IndexPageProps {
   pageContext: {
     dengineConfig: DengineConfig
+    dengineContent: DengineContent
+    firstDoc: string
+    pageTitle: string
+    version: string
+    availableLocales: Array<{
+      code: string
+      name: string
+    }>
+    availableVersions: string[]
+    locale: string
   }
 }
 
@@ -19,6 +29,7 @@ const IndexPage: React.SFC<IndexPageProps> = ({
     firstDoc,
     locale,
     availableLocales,
+    availableVersions,
   },
 }) => {
   const { name } = dengineContent
@@ -28,6 +39,7 @@ const IndexPage: React.SFC<IndexPageProps> = ({
       dengineConfig={dengineConfig}
       dengineContent={dengineContent}
       availableLocales={availableLocales}
+      availableVersions={availableVersions}
       locale={locale}
       pageTitle="Hello"
       version="latest"

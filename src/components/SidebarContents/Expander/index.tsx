@@ -18,9 +18,15 @@ const CLOSED = 'closed'
 const OPEN = 'open'
 
 const Expander: React.SFC<ExpanderProps> = ({ branch, currentParent }) => {
-  const [menuState, updateMenuState] = useState(
-    currentParent === branch.parent ? OPEN : CLOSED
-  )
+  const [menuState, updateMenuState] = useState(CLOSED)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 768) {
+        return updateMenuState(OPEN)
+      }
+    }
+  })
 
   const toggleMenuState = () => {
     return updateMenuState(menuState === CLOSED ? OPEN : CLOSED)

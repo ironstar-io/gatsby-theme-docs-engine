@@ -2,10 +2,14 @@
 
 .documentation-page
   display: flex
-  padding-top: 50px
+  padding-top: 25px
   max-width: 1440px
   width: 100%
   margin: 0 auto
+  flex-direction: column-reverse
+
+  @include media-breakpoint-up(sm)
+    flex-direction: row
 
   .content-wrapper
     min-height: 100vh
@@ -14,6 +18,7 @@
 
     .content-body
       padding: 25px
+      padding-top: 0
       min-height: 80vh
       max-width: 800px
       margin: 0 auto 25px

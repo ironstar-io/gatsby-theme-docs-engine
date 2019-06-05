@@ -1,17 +1,24 @@
 export interface DengineConfig {
-  name: string
-  tagline: string
-  url: string
   projectName: string
-  organizationName: string
+  url: string
   defaultLocale: string
-  documentationOrder: Array<{
-    parent: string
-    items: string[]
-  }>
   repository: {
     url: string
     branch: string
+  }
+  favicon: string
+  latestVersion: string
+  headerIcon: string
+  footerIcon: string
+}
+
+export interface DengineContent {
+  name: string
+  tagline: string
+  organizationName: string
+  localeInfo: {
+    code: string
+    name: string
   }
   users: Array<{
     caption: string
@@ -19,26 +26,17 @@ export interface DengineConfig {
     infoLink: string
     pinned: boolean
   }>
-  favicon: string
-  latestVersion: string
-  version?: string
   header: {
     icon: string
-    style: {
-      backgroundImage: string
-      color: string
-    }
-    links: Array<{
+    style?: any
+    links?: Array<{
       externalRef?: string
       internalRef?: string
       label: string
     }>
   }
-  footer?: {
-    style?: {
-      backgroundImage: string
-      color: string
-    }
+  footer: {
+    style?: any
     icon?: string
     copyright?: string
     brandmark?: string
@@ -61,6 +59,12 @@ export interface DengineConfig {
       externalRef?: string
     }>
   }
+  copyright: string
+}
+
+export interface FirstDocMap {
+  path: string
+  version: string
 }
 
 export interface DocsMeta {

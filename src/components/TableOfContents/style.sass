@@ -1,5 +1,7 @@
 @import '../../base'
 
+$depth-indent: 10px
+
 .table-of-contents
   position: sticky
   display: flex
@@ -7,12 +9,28 @@
   top: 45px
   width: 200px
   margin-top: 45px
+  display: none
+  @include media-breakpoint-up(lg)
+    display: flex
+
+  > h4
+    margin: 0 0 10px 0
+    line-height: 1em
 
   a
     color: #777
     line-height: 1.25em
     padding: 10px 0
 
+  .depth-1
+  .depth-2
 
-    // &:visited
-    //   color: #d7d7d7
+  .depth-3
+    margin-left: $depth-indent
+
+  .depth-4
+    margin-left: $depth-indent * 2
+
+  .depth-5
+    margin-left: $depth-indent * 3
+

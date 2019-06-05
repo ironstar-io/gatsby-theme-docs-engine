@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Button from '../Button'
+import { Link } from 'gatsby'
 
 import './style.sass'
 
@@ -14,7 +14,7 @@ interface Props {
 const PreviousNext = ({ previous = {}, next = {} }: Props) => {
   const previousText =
     previous &&
-    `Previous: ${
+    `${
       Array.isArray(previous.parents) &&
       previous.parents[0] &&
       previous.parents[0] !== 'root'
@@ -24,7 +24,7 @@ const PreviousNext = ({ previous = {}, next = {} }: Props) => {
 
   const nextText =
     next &&
-    `Next: ${
+    `${
       Array.isArray(next.parents) &&
       next.parents[0] &&
       next.parents[0] !== 'root'
@@ -36,20 +36,20 @@ const PreviousNext = ({ previous = {}, next = {} }: Props) => {
     <nav id="previous-next">
       <div className="previous">
         {previous && previous.title && (
-          <Button
-            invertColor={true}
-            linkRef={previous.path}
-            ariaLabel={previousText}
-          >
+          <Link to={previous.path} aria-label={previousText}>
+            <b>Previous:</b>
+            <br />
             {previousText}
-          </Button>
+          </Link>
         )}
       </div>
       <div className="next">
         {next && next.title && (
-          <Button invertColor={true} linkRef={next.path} ariaLabel={nextText}>
+          <Link to={next.path} aria-label={nextText}>
+            <b>Next:</b>
+            <br />
             {nextText}
-          </Button>
+          </Link>
         )}
       </div>
     </nav>

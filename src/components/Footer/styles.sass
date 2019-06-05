@@ -21,10 +21,21 @@
     .contact
       display: flex
       margin-top: 3rem
+      flex-direction: column
+      text-align: center
+
+      @include media-breakpoint-up(sm)
+        flex-direction: row
+        text-align: left
 
       .right
-        text-align: right
+        text-align: center
         flex: 1
+        margin-top: 20px
+
+        @include media-breakpoint-up(sm)
+          text-align: right
+          margin-top: 0
 
     .social
       display: flex
@@ -54,18 +65,17 @@
 
 
 
-    @include media-breakpoint-down(sm)
-      .resources, .social
-        padding-bottom: 3rem
-        border-bottom: 1px solid $ironstar-border
-        line-height: 3.5rem
+    // @include media-breakpoint-down(sm)
+    //   .resources, .social
+    //     padding-bottom: 3rem
+    //     line-height: 3.5rem
 
-      .contact, .address
-        padding-top: 3rem
-        padding-bottom: 3rem
-        border-bottom: 1px solid $ironstar-border
-        line-height: 2.5rem
+    //   .contact, .address
+    //     padding-top: 3rem
+    //     padding-bottom: 3rem
+    //     border-bottom: 1px solid $ironstar-border
+    //     line-height: 2.5rem
 
-      .copyright
-        padding-top: 3rem
-        line-height: 2.5rem
+    //   .copyright
+    //     padding-top: 3rem
+    //     line-height: 2.5rem

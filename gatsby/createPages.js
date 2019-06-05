@@ -10,6 +10,7 @@ const {
   buildLocaleTrees,
   pullAvailableLocales,
   pullPreviousNext,
+  buildVersionLocaleMap,
 } = require('./pageHelpers')
 
 const basePageQuery = async graphql => {
@@ -54,6 +55,7 @@ const buildVersionsPage = async ({
   basePageData,
   availableLocales,
   localeSidebarTrees,
+  versionLocaleMap,
   dengineConfig,
   dengineContent,
 }) => {
@@ -66,21 +68,6 @@ const buildVersionsPage = async ({
       allMdx: { edges },
     },
   } = basePageData
-
-  const versionLocaleMap = edges.reduce(
-    (acc, { node: { fileAbsolutePath } }) => {
-      const [locale, version] = splitLocaleVersion(fileAbsolutePath)
-
-      if (acc[locale] && !acc[locale].includes(version)) {
-        acc[locale].push(version)
-      } else {
-        acc[locale] = [version]
-      }
-
-      return acc
-    },
-    {}
-  )
 
   const { defaultLocale } = dengineConfig
 
@@ -140,6 +127,7 @@ const buildDocsPages = async ({
   basePageData,
   availableLocales,
   localeSidebarTrees,
+  versionLocaleMap,
   dengineConfig,
   dengineContent,
 }) => {
@@ -187,8 +175,9 @@ const buildDocsPages = async ({
           dengineContent[locale] || dengineContent[dengineConfig.defaultLocale],
         relativePath: splitPath ? `/__content${splitPath}` : null,
         parent: residingBranch.parent,
-        sidebarTree,
+        availableVersions: versionLocaleMap[locale],
         availableLocales,
+        sidebarTree,
         id,
         body,
         version,
@@ -203,8 +192,10 @@ const buildDocsPages = async ({
 
 const buildIndexPage = async ({
   createPage,
+  createRedirect,
   availableLocales,
   localeSidebarTrees,
+  versionLocaleMap,
   dengineConfig,
   dengineContent,
 }) => {
@@ -214,17 +205,27 @@ const buildIndexPage = async ({
     'latest[0].items[0].path'
   )
 
-  await createPage({
-    path: '/',
-    component: Template,
-    context: {
-      dengineConfig,
-      availableLocales,
-      dengineContent: dengineContent[dengineConfig.defaultLocale],
-      locale: dengineConfig.defaultLocale,
-      firstDoc: defaultFirstDoc,
-    },
-  })
+  if (dengineConfig.redirectIndex === true) {
+    await createRedirect({
+      fromPath: `/`,
+      toPath: defaultFirstDoc,
+      redirectInBrowser: true,
+      isPermanent: true,
+    })
+  } else {
+    await createPage({
+      path: '/',
+      component: Template,
+      context: {
+        dengineConfig,
+        availableLocales,
+        dengineContent: dengineContent[dengineConfig.defaultLocale],
+        availableVersions: versionLocaleMap[dengineConfig.defaultLocale],
+        locale: dengineConfig.defaultLocale,
+        firstDoc: defaultFirstDoc,
+      },
+    })
+  }
 
   const locales = Object.keys(dengineContent)
 
@@ -234,17 +235,27 @@ const buildIndexPage = async ({
       'latest[0].items[0].path'
     )
 
-    await createPage({
-      path: `/${locale}`,
-      component: Template,
-      context: {
-        dengineConfig,
-        availableLocales,
-        locale,
-        dengineContent: dengineContent[locale],
-        firstDoc: localeFirstDoc,
-      },
-    })
+    if (dengineConfig.redirectIndex === true) {
+      await createRedirect({
+        fromPath: `/${locale}/`,
+        toPath: localeFirstDoc,
+        redirectInBrowser: true,
+        isPermanent: true,
+      })
+    } else {
+      await createPage({
+        path: `/${locale}`,
+        component: Template,
+        context: {
+          dengineConfig,
+          availableLocales,
+          locale,
+          availableVersions: versionLocaleMap[locale],
+          dengineContent: dengineContent[locale],
+          firstDoc: localeFirstDoc,
+        },
+      })
+    }
   }
 }
 
@@ -261,15 +272,18 @@ module.exports = exports.createPages = async (
       basePageData,
     })
     const availableLocales = pullAvailableLocales(dengineContent)
+    const versionLocaleMap = buildVersionLocaleMap(basePageData)
 
     await Promise.all([
       buildIndexPage({
         createPage,
+        createRedirect,
         basePageData,
         availableLocales,
         localeSidebarTrees,
         dengineContent,
         dengineConfig,
+        versionLocaleMap,
       }),
       buildDocsPages({
         createPage,
@@ -278,6 +292,7 @@ module.exports = exports.createPages = async (
         localeSidebarTrees,
         dengineContent,
         dengineConfig,
+        versionLocaleMap,
       }),
       buildVersionsPage({
         createPage,
@@ -287,6 +302,7 @@ module.exports = exports.createPages = async (
         localeSidebarTrees,
         dengineContent,
         dengineConfig,
+        versionLocaleMap,
       }),
     ])
 

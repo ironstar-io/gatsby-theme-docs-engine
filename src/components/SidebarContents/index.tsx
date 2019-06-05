@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { pathPrefix } from '../../../gatsby-config'
 
 import Expander from './Expander'
 
@@ -10,15 +9,12 @@ import { SidebarTreeObject } from '../../types'
 
 interface SidebarContentsProps {
   tree: Array<SidebarTreeObject>
-  parents: string[]
+  parent: string
 }
 
 const SidebarContents: React.SFC<SidebarContentsProps> = ({ tree, parent }) => {
   return (
-    <div
-      className="side-menu"
-      //  defaultOpenKeys={parents} selectedKeys={keys}
-    >
+    <div className="side-menu">
       {Array.isArray(tree) &&
         tree.map(branch => {
           if (!branch || !Array.isArray(branch.items)) {

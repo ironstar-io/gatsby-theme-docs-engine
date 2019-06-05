@@ -9,8 +9,15 @@ import { DengineConfig } from '../types'
 
 interface RootLayoutProps {
   dengineConfig: DengineConfig
+  dengineContent: any
   pageTitle: string
   version: string
+  availableLocales: Array<{
+    code: string
+    name: string
+  }>
+  availableVersions: string[]
+  locale: string
   children: any
 }
 
@@ -18,43 +25,37 @@ const RootLayout: React.SFC<RootLayoutProps> = ({
   dengineConfig,
   dengineContent,
   availableLocales,
+  availableVersions,
   pageTitle,
   version,
   locale,
   children,
-}: any) => {
+}) => {
   return (
     <SiteContext.Provider
       value={{
         ...dengineConfig,
         ...dengineContent,
         availableLocales,
+        availableVersions,
         locale,
         version,
       }}
     >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateRows: 'auto 1fr',
-          height: '100vh',
-        }}
+      <Helmet
+        title={`${pageTitle} | Ironstar Documentation`}
+        meta={[
+          { name: 'description', content: 'Tokaido Documentation' },
+          { name: 'keywords', content: 'Drupal, Hosting' },
+        ]}
       >
-        <Helmet
-          title={`${pageTitle} | Ironstar Documentation`}
-          meta={[
-            { name: 'description', content: 'Tokaido Documentation' },
-            { name: 'keywords', content: 'Drupal, Hosting' },
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <Navbar />
+        <html lang="en" />
+      </Helmet>
+      <Navbar />
 
-        {children}
+      {children}
 
-        <Footer />
-      </div>
+      <Footer />
     </SiteContext.Provider>
   )
 }

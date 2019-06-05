@@ -36,6 +36,7 @@ interface AnchorItem {
   children: Array<AnchorItem>
   href: string
   title: string
+  depth: number
 }
 
 const TableOfContents: React.FC = () => {
@@ -51,20 +52,36 @@ const TableOfContents: React.FC = () => {
       if (item.children.length > 0) {
         return (
           <React.Fragment key={item.href}>
-            <a href={item.href}>{item.title}</a>
+            <a className={`depth-${item.depth}`} href={item.href}>
+              {item.title}
+            </a>
             {loop(item.children)}
           </React.Fragment>
         )
       }
 
       return (
-        <a href={item.href} key={item.href}>
+        <a className={`depth-${item.depth}`} href={item.href} key={item.href}>
           {item.title}
         </a>
       )
     })
+  console.log({ anchors })
+  if (
+    !Array.isArray(anchors) ||
+    anchors.length === 0 ||
+    !Array.isArray(anchors[0].children) ||
+    anchors[0].children.length === 0
+  ) {
+    return <div className="table-of-contents" />
+  }
 
-  return <div className="table-of-contents">{loop(anchors)}</div>
+  return (
+    <div className="table-of-contents">
+      <h4>In this article:</h4>
+      {loop(anchors)}
+    </div>
+  )
 }
 
 export default TableOfContents

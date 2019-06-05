@@ -5,7 +5,7 @@ import SiteContext from '../../context/site'
 
 import './styles.sass'
 
-import { DengineConfig } from '../../types'
+import { DengineContent } from '../../types'
 
 const defaultStyling = {
   backgroundImage:
@@ -15,7 +15,7 @@ const defaultStyling = {
 
 const Footer: React.SFC<{}> = () => (
   <SiteContext.Consumer>
-    {({ footer = {} }: DengineConfig) => {
+    {({ footer = {} }: DengineContent) => {
       const footerStyling = Object.assign(
         {},
         defaultStyling,

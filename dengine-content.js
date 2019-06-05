@@ -8,11 +8,6 @@ const dengineContent = {
       code: 'en',
       name: 'English',
     },
-    documentationOrder: [
-      { parent: 'root', items: ['Introduction'] },
-      { parent: 'About Tokaido', items: ['Why use Tokaido?'] },
-      { parent: 'Containers', items: ['General', 'HAProxy', 'Varnish'] },
-    ],
     // Users of your product (CURRENTLY UNUSED)
     users: [
       {
