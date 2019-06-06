@@ -75,6 +75,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
 
         <div className="content-wrapper">
           <div className="content-body">
+            {parent !== 'root' && <h5 className="breadcrumb">{parent}</h5>}
             <MDXRenderer>{body}</MDXRenderer>
 
             {Array.isArray(tags) && (
