@@ -1,7 +1,7 @@
 {
   "name": "gatsby-theme-docs-engine",
   "description": "The UI and business logic layer for Ironstar documentation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Ironstar Team",
   "dependencies": {
     "@babel/core": "^7.4.4",
@@ -15,6 +15,7 @@
     "gatsby-plugin-compile-es6-packages": "^1.1.0",
     "gatsby-plugin-google-fonts": "^1.0.0",
     "gatsby-plugin-manifest": "2.1.1",
+    "gatsby-plugin-meta-redirect": "^1.1.1",
     "gatsby-plugin-offline": "2.1.0",
     "gatsby-plugin-page-creator": "^2.0.13",
     "gatsby-plugin-react-helmet": "3.0.12",
@@ -61,9 +62,9 @@
     "@types/react-dom": "16.8.4",
     "@types/react-helmet": "5.0.8",
     "gatsby": "^2.4.2",
+    "prettier": "1.17.0",
     "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "prettier": "1.17.0"
+    "react-dom": "16.8.6"
   },
   "peerDependencies": {
     "gatsby": "^2.8.2",

@@ -66,7 +66,7 @@ const TableOfContents: React.FC = () => {
         </a>
       )
     })
-  console.log({ anchors })
+
   if (
     !Array.isArray(anchors) ||
     anchors.length === 0 ||
