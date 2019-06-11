@@ -3,6 +3,7 @@ import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import RootLayout from '../../layout/Root'
 import SidebarContents from '../../components/SidebarContents'
 import TableOfContents from '../../components/TableOfContents'
+import Feedback from '../../components/Feedback'
 import PreviousNext from '../../components/PreviousNext'
 
 import './style.sass'
@@ -58,7 +59,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
     version,
   },
 }) => {
-  const { repository } = dengineConfig
+  const { repository, feedback, apiUrl } = dengineConfig
 
   return (
     <RootLayout
@@ -104,6 +105,14 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
                 Shoot us a PR!
               </a>
             </div>
+          )}
+
+          {feedback && feedback.show && (
+            <Feedback
+              apiUrl={apiUrl}
+              apiPath={feedback.apiPath}
+              page={relativePath.replace('/__content', '')}
+            />
           )}
 
           <PreviousNext previous={previous} next={next} />

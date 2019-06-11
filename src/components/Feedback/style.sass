@@ -1,0 +1,39 @@
+@import '../../base'
+
+.feedback
+  margin: 25px
+
+  .stars
+    display: flex
+
+    .star
+      padding-right: 5px
+      color: black
+      cursor: pointer
+
+      &.star-hover
+        color: #ed8a19
+
+      svg
+        width: 25px
+
+  .star-qual
+    position: absolute
+    background: black
+    padding: 10px
+    color: white
+    font-size: 80%
+    font-weight: bold
+    line-height: .75em
+    border-radius: 5px
+
+  .feedback-btn
+    margin-top: 10px
+    cursor: pointer
+
+    &:hover
+      font-weight: bold
+
+  .success, .failure
+    font-weight: bold
+

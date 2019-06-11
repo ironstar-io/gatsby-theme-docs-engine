@@ -6,6 +6,11 @@ export interface DengineConfig {
     url: string
     branch: string
   }
+  feedback: {
+    show: boolean
+    apiPath: string
+  }
+  apiUrl: string
   favicon: string
   latestVersion: string
   headerIcon: string
