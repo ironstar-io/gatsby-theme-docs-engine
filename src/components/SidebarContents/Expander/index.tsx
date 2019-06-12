@@ -26,7 +26,7 @@ const Expander: React.SFC<ExpanderProps> = ({ branch, currentParent }) => {
         return updateMenuState(OPEN)
       }
     }
-  })
+  }, [])
 
   const toggleMenuState = () => {
     return updateMenuState(menuState === CLOSED ? OPEN : CLOSED)
