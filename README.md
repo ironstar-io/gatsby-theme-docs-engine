@@ -1,4 +1,4 @@
-# Gatsby Theme - Bantan Docs Engine by Ironstar
+# Bantan Docs Engine by Ironstar
 
 This is a [Gatbsy Theme](https://www.gatsbyjs.org/docs/themes/) for technical documentation websites.
 
@@ -10,7 +10,7 @@ See [Bantan Docs Engine Reference Guide](https://bantan-docs-engine.ironstar.io)
 git init
 yarn init
 yarn add gatsby-theme-docs-engine gatsby graphql react react-dom webpack
-touch index.js // This is a noop file, can stay blank
+touch index.js
 touch gatsby-config.js
 ```
 
