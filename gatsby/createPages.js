@@ -174,7 +174,7 @@ const buildDocsPages = async ({
         dengineContent:
           dengineContent[locale] || dengineContent[dengineConfig.defaultLocale],
         relativePath: splitPath ? `/__content${splitPath}` : null,
-        parent: residingBranch.parent,
+        parent: (residingBranch && residingBranch.parent) || 'root',
         availableVersions: versionLocaleMap[locale],
         availableLocales,
         sidebarTree,

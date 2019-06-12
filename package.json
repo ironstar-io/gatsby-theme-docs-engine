@@ -1,7 +1,7 @@
 {
   "name": "gatsby-theme-docs-engine",
   "description": "Bantan Docs Engine - The UI and theme layer for Ironstar documentation",
-  "version": "0.1.3",
+  "version": "0.1.6",
   "author": "Ironstar Team",
   "dependencies": {
     "@babel/core": "^7.4.4",
@@ -73,12 +73,15 @@
     "react-dom": "^16.8.6"
   },
   "bin": {
-    "docs-init": "./bin/init"
+    "init": "./bin/init",
+    "locale": "./bin/locale",
+    "version": "./bin/version"
   },
   "files": [
     "/gatsby",
     "/src",
     "/bin",
+    "template",
     "dengine-config.js",
     "dengine-content.js",
     "gatsby-config.js",
