@@ -1,6 +1,5 @@
 const dengineContent = {
   en: {
-    // NOT GLOBAL
     name: 'Ironstar Documentation Engine', // Title for your website.
     tagline: 'A website for testing',
     organizationName: 'Ironstar',
@@ -63,7 +62,6 @@ const dengineContent = {
     },
   },
   jp: {
-    // NOT GLOBAL
     name: 'IronstarドキュメンテーションCLI', // Title for your website.
     tagline: 'A website for testing',
     organizationName: 'Ironstar株式会社',

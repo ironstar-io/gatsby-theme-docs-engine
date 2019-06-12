@@ -3,49 +3,52 @@
 // /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section
-	display: block
+  display: block
 
 body
-	font-size: 16px
-	-webkit-overflow-scrolling: touch
-	font: 400 16px/24px Roboto,sans-serif
-	-moz-osx-font-smoothing: grayscale
-	-webkit-font-smoothing: antialiased
-	margin: 0
-	-webkit-text-size-adjust: 100%
-	-moz-text-size-adjust: 100%
-	-ms-text-size-adjust: 100%
-	text-size-adjust: 100%
+  font-size: 16px
+  -webkit-overflow-scrolling: touch
+  font: 400 16px/24px Roboto,sans-serif
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+  margin: 0
+  -webkit-text-size-adjust: 100%
+  -moz-text-size-adjust: 100%
+  -ms-text-size-adjust: 100%
+  text-size-adjust: 100%
 
-	&.no-scroll
-		overflow: hidden
+  &.no-scroll
+    overflow: hidden
 
 h1, h2, h3, h4, h5
-	line-height: 2em
+  line-height: 2em
 
 input::placeholder
-	font-family: "Roboto", sans-serif
+  font-family: "Roboto", sans-serif
 
 blockquote, q
-	quotes: none
+  quotes: none
 
 blockquote:before, blockquote:after,
 q:before, q:after
-	content: ''
-	content: none
+  content: ''
+  content: none
 
 table
-	border-collapse: collapse
-	border-spacing: 0
+  border-collapse: collapse
+  border-spacing: 0
 
 a
-	text-decoration: none
+  text-decoration: none
+  color: $default-link-blue
+  &:visited
+    color: $default-link-blue
 
 @import "./fonts"
 
 section
-	position: relative
-	max-width: 1440px
-	margin: 0 auto
+  position: relative
+  max-width: 1440px
+  margin: 0 auto
 
 @import "./overrides"

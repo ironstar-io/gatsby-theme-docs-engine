@@ -68,6 +68,26 @@ const Footer: React.SFC<{}> = () => (
                   {footer.email && (
                     <a href={`mailto:${footer.email}`}>Email: {footer.email}</a>
                   )}
+                  {Array.isArray(footer.policy) && (
+                    <div className="policy-links">
+                      {footer.policy.map(
+                        ({ name, externalRef, internalRef }) => {
+                          if (internalRef) {
+                            return (
+                              <Link key={name} to={internalRef}>
+                                {name}
+                              </Link>
+                            )
+                          }
+                          return (
+                            <a key={name} href={externalRef}>
+                              {name}
+                            </a>
+                          )
+                        }
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="social">
@@ -87,24 +107,7 @@ const Footer: React.SFC<{}> = () => (
               {footer.copyright && (
                 <div className="copyright">{footer.copyright}</div>
               )}
-              {Array.isArray(footer.policy) && (
-                <div className="policy-links">
-                  {footer.policy.map(({ name, externalRef, internalRef }) => {
-                    if (internalRef) {
-                      return (
-                        <Link key={name} to={internalRef}>
-                          {name}
-                        </Link>
-                      )
-                    }
-                    return (
-                      <a key={name} href={externalRef}>
-                        {name}
-                      </a>
-                    )
-                  })}
-                </div>
-              )}
+              <div className="powered-by">Built with <a href="https://github.com/ironstar-io/bantan-docs-engine" target="_blank">Bantan Docs Engine</a> by <a href="https://ironstar.io">Ironstar</a></div>
             </div>
           </div>
         </footer>

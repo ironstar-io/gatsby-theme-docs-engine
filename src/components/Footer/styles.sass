@@ -48,34 +48,26 @@
     .copyright
       margin-top: 2rem
       text-align: center
+      color: #808080
 
       a
         display: inline-block
         margin-left: 1rem
         text-decoration: underline
 
-    .policy-links
-      display: flex
-      justify-content: center
-      font-weight: normal
+    .powered-by
       margin-top: 1rem
+      text-align: center
+      color: #808080
 
       a
-        margin: 0 10px
+        display: inline-block
+        text-decoration: underline
 
+    .policy-links
+      font-weight: normal
+      margin-top: 1.5rem
+      text-align: center
 
-
-    // @include media-breakpoint-down(sm)
-    //   .resources, .social
-    //     padding-bottom: 3rem
-    //     line-height: 3.5rem
-
-    //   .contact, .address
-    //     padding-top: 3rem
-    //     padding-bottom: 3rem
-    //     border-bottom: 1px solid $ironstar-border
-    //     line-height: 2.5rem
-
-    //   .copyright
-    //     padding-top: 3rem
-    //     line-height: 2.5rem
+      @include media-breakpoint-up(sm)
+        text-align: right
