@@ -205,6 +205,13 @@ const buildIndexPage = async ({
     'latest[0].items[0].path'
   )
 
+  await createRedirect({
+    fromPath: `/docs`,
+    toPath: defaultFirstDoc,
+    redirectInBrowser: true,
+    isPermanent: true,
+  })
+
   if (dengineConfig.redirectIndex === true) {
     await createRedirect({
       fromPath: `/`,
