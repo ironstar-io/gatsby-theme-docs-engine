@@ -1,56 +1,33 @@
-sample: https://www.jannikbuschke.de/gatsby-antd-docs/
+# Gatsby Theme - Bantan Docs Engine by Ironstar
 
-# Gatsby Ant-Design Documentation Starter
+This is a [Gatbsy Theme](https://www.gatsbyjs.org/docs/themes/) for technical documentation websites.
 
-Forked from https://github.com/cvluca/gatsby-starter-markdown.
+See [Bantan Docs Engine Reference Guide](https://bantan-docs-engine.ironstar.io) for more detailed information.
 
-This starter is boilerplate for (technical) documentation websites optionally accomponied by a blog (you can use it forever you want of course).
+## Quick Start
 
-# Getting started
-
-```
-npm install gatsby -g
-gatsby new my-docs https://github.com/jannikbuschke/gatsby-antd-docs
-cd my-docs
-npm run start
-```
-
-Visit http://localhost:8000.
-
-Edit files in `/content/docs` and see live updates.
-
-# Features
-
-- [x] Ant Design
-- [x] Typescript
-- [x] Markdown
-- [x] MDX
-- [x] Syntax highlighting
-
-# Roadmap
-
-- [x] Add typescript
-- [x] Remove Redux
-- [x] General simplifications
-- [x] Add mdx
-- [x] Add syntax highlighting with prismjs
-- [x] Improve Header UI
-- [ ] Fix menu item links not showing active state
-- [ ] Blog feature / second content type
-- [ ] Improved typings
-- [ ] Improved responsiveness
-- [ ] Add Search
-
-# Hosting
-
-In order to host the site the **sites path** needs to be put into gatsby-config.js export object on to the property _pathPrefix_. Then run
-
-```
-npm run build
+```sh
+git init
+yarn init
+yarn add gatsby-theme-docs-engine gatsby graphql react react-dom webpack
+touch index.js // This is a noop file, can stay blank
+touch gatsby-config.js
 ```
 
-and copy the content of the public folder to the webspace.
+Fill your new `gatsby-config.js` file with the following to activate the theme
 
-# License
+```js
+module.exports = {
+  __experimentalThemes: [
+    {
+      resolve: "gatsby-theme-docs-engine",
+      options: {}
+    }
+  ]
+};
+```
 
-MIT
+Run `yarn develop` to start the development server
+
+Visit http://localhost:8000 to view the base documentation set
+
