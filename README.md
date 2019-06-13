@@ -4,6 +4,11 @@ This is a [Gatbsy Theme](https://www.gatsbyjs.org/docs/themes/) for technical do
 
 See [Bantan Docs Engine Reference Guide](https://bantan-docs-engine.ironstar.io) for more detailed information.
 
+## Dependencies
+
+- Node.js >= 8
+- yarn/npm
+
 ## Quick Start
 
 ```sh
@@ -20,14 +25,13 @@ Fill your new `gatsby-config.js` file with the following to activate the theme
 module.exports = {
   __experimentalThemes: [
     {
-      resolve: "gatsby-theme-docs-engine",
-      options: {}
-    }
-  ]
-};
+      resolve: 'gatsby-theme-docs-engine',
+      options: {},
+    },
+  ],
+}
 ```
 
 Run `yarn develop` to start the development server
 
 Visit http://localhost:8000 to view the base documentation set
-
