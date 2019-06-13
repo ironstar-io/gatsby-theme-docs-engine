@@ -23,14 +23,16 @@ const Feedback: React.SFC<Props> = ({ apiUrl, apiPath, page }) => {
   const [errorMsg, setError] = useState('')
   const [starHover, setStarHover] = useState(0)
 
-  const sendFeedback = async () => {
+  const sendFeedback = async (selected: number) => {
+    setScore(selected)
+
     try {
+      setSent(true)
+
       const res = await axios.post(`${apiUrl}${apiPath}`, {
         score: score.toString(),
         docsPage: page,
       })
-
-      setSent(true)
 
       if (res.status !== 202) {
         throw new Error('A HTTP error occurred')
@@ -38,12 +40,6 @@ const Feedback: React.SFC<Props> = ({ apiUrl, apiPath, page }) => {
     } catch (e) {
       console.error(e)
       setError('Failed to send feedback')
-    }
-  }
-
-  const clickScore = (selected: number) => {
-    if (score !== selected) {
-      setScore(selected)
     }
   }
 
@@ -66,7 +62,7 @@ const Feedback: React.SFC<Props> = ({ apiUrl, apiPath, page }) => {
             {new Array(5).fill(null).map((_, i) => (
               <div
                 key={`star-${i + 1}`}
-                onClick={() => clickScore(i + 1)}
+                onClick={() => sendFeedback(i + 1)}
                 className={`star ${starHover >= i + 1 && 'star-hover'}`}
                 onMouseEnter={() => handleStarHover(i + 1)}
                 onMouseLeave={() => handleStarLeave(i + 1)}
@@ -102,7 +98,6 @@ const Feedback: React.SFC<Props> = ({ apiUrl, apiPath, page }) => {
             className="feedback-btn"
             role="button"
             aria-label="Submit Feedback"
-            onClick={() => sendFeedback()}
           >
             SEND FEEDBACK
           </div>
