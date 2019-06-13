@@ -5,11 +5,11 @@ import Footer from '../components/Footer'
 
 import SiteContext from '../context/site'
 
-import { DengineConfig } from '../types'
+import { DengineConfig, DengineContent } from '../types'
 
 interface RootLayoutProps {
   dengineConfig: DengineConfig
-  dengineContent: any
+  dengineContent: DengineContent
   pageTitle: string
   version: string
   availableLocales: Array<{
@@ -31,6 +31,7 @@ const RootLayout: React.SFC<RootLayoutProps> = ({
   locale,
   children,
 }) => {
+  console.log(dengineContent)
   return (
     <SiteContext.Provider
       value={{
@@ -43,7 +44,7 @@ const RootLayout: React.SFC<RootLayoutProps> = ({
       }}
     >
       <Helmet
-        title={`${pageTitle} | Ironstar Documentation`}
+        title={`${pageTitle} | ${dengineContent.name || 'Documentation'}`}
         meta={[
           { name: 'description', content: 'Tokaido Documentation' },
           { name: 'keywords', content: 'Drupal, Hosting' },

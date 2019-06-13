@@ -1,16 +1,19 @@
 const dengineConfig = {
-  projectName: 'test-site',
-  url: 'https://docs.tokaido.io', // Your website URL
+  projectName: 'Bantan Docs Engine',
+  url: 'https://bantan-docs.ironstar.io', // Your website URL
   defaultLocale: 'en',
   repository: {
-    url: 'https://github.com/ironstar-io/docs-engine',
+    url: 'https://github.com/ironstar-io/bantan-docs-engine',
     branch: 'master',
   },
-  /* path to images for header/footer */
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
+  feedback: {
+    show: false,
+    apiPath: '/v1/feedback/documentation',
+  },
+  apiUrl: 'https://api.xxxxxx.io',
+  redirectIndex: true,
   favicon: 'img/favicon.ico',
-  latestVersion: '1.8.0',
+  latestVersion: '0.1.7',
 }
 
 module.exports = dengineConfig
