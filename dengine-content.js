@@ -69,11 +69,6 @@ const dengineContent = {
       code: 'jp',
       name: '日本語',
     },
-    documentationOrder: [
-      { parent: 'root', items: ['東海道へようこそ'] },
-      { parent: 'About Tokaido', items: ['Why use Tokaido?'] },
-      { parent: 'Containers', items: ['General', 'HAProxy', 'Varnish'] },
-    ],
     // Users of your product (CURRENTLY UNUSED)
     users: [
       {
