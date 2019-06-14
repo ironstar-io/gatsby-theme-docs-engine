@@ -100,6 +100,8 @@ const buildVersionsPage = async ({
       []
     )
 
+    const overrides = require(`${process.cwd()}/__content/${locale}/docs/config.js`)
+
     await createPage({
       path: `/${locale}/versions`,
       component: Template,
@@ -108,7 +110,14 @@ const buildVersionsPage = async ({
         locale,
         firstDocMap,
         availableLocales,
-        dengineContent: dengineContent[locale],
+        dengineConfig: {
+          ...dengineConfig,
+          ...(overrides.dengineConfig || {}),
+        },
+        dengineContent: {
+          ...dengineContent[locale],
+          ...(overrides.dengineContent || {}),
+        },
         availableVersions: versionLocaleMap[locale],
       },
     })
@@ -166,13 +175,23 @@ const buildDocsPages = async ({
       title: frontmatter.title,
     })
 
+    const overrides = require(`${process.cwd()}/__content/${locale ||
+      dengineConfig.defaultLocale}${
+      version === 'latest' ? '' : `/${version}`
+    }/docs/config.js`)
+
+    const contentObj =
+      dengineContent[locale] || dengineContent[dengineConfig.defaultLocale]
+
     createPage({
       path: replacePath(slug),
       component: Template,
       context: {
-        dengineConfig,
-        dengineContent:
-          dengineContent[locale] || dengineContent[dengineConfig.defaultLocale],
+        dengineConfig: {
+          ...dengineConfig,
+          ...(overrides.dengineConfig || {}),
+        },
+        dengineContent: { ...contentObj, ...(overrides.dengineContent || {}) },
         relativePath: splitPath ? `/__content${splitPath}` : null,
         parent: (residingBranch && residingBranch.parent) || 'root',
         availableVersions: versionLocaleMap[locale],
@@ -205,28 +224,39 @@ const buildIndexPage = async ({
     'latest[0].items[0].path'
   )
 
-  await createRedirect({
-    fromPath: `/docs`,
-    toPath: defaultFirstDoc,
-    redirectInBrowser: true,
-    isPermanent: true,
-  })
-
-  if (dengineConfig.redirectIndex === true) {
+  if (defaultFirstDoc) {
     await createRedirect({
-      fromPath: `/`,
+      fromPath: `/docs`,
       toPath: defaultFirstDoc,
       redirectInBrowser: true,
       isPermanent: true,
     })
+  }
+
+  if (dengineConfig.redirectIndex === true) {
+    if (defaultFirstDoc) {
+      await createRedirect({
+        fromPath: `/`,
+        toPath: defaultFirstDoc,
+        redirectInBrowser: true,
+        isPermanent: true,
+      })
+    }
   } else {
+    const overrides = require(`${process.cwd()}/__content/${
+      dengineConfig.defaultLocale
+    }/docs/config.js`)
+
     await createPage({
       path: '/',
       component: Template,
       context: {
-        dengineConfig,
         availableLocales,
-        dengineContent: dengineContent[dengineConfig.defaultLocale],
+        dengineConfig: { ...dengineConfig, ...(overrides.dengineConfig || {}) },
+        dengineContent: {
+          ...dengineContent[dengineConfig.defaultLocale],
+          ...(overrides.dengineContent || {}),
+        },
         availableVersions: versionLocaleMap[dengineConfig.defaultLocale],
         locale: dengineConfig.defaultLocale,
         firstDoc: defaultFirstDoc,
@@ -243,22 +273,32 @@ const buildIndexPage = async ({
     )
 
     if (dengineConfig.redirectIndex === true) {
-      await createRedirect({
-        fromPath: `/${locale}/`,
-        toPath: localeFirstDoc,
-        redirectInBrowser: true,
-        isPermanent: true,
-      })
+      if (localeFirstDoc) {
+        createRedirect({
+          fromPath: `/${locale}`,
+          toPath: localeFirstDoc,
+          redirectInBrowser: true,
+          isPermanent: true,
+        })
+      }
     } else {
+      const overrides = require(`${process.cwd()}/__content/${locale}/docs/config.js`)
+
       await createPage({
         path: `/${locale}`,
         component: Template,
         context: {
-          dengineConfig,
-          availableLocales,
           locale,
+          availableLocales,
+          dengineConfig: {
+            ...dengineConfig,
+            ...(overrides.dengineConfig || {}),
+          },
+          dengineContent: {
+            ...dengineContent[locale],
+            ...(overrides.dengineContent || {}),
+          },
           availableVersions: versionLocaleMap[locale],
-          dengineContent: dengineContent[locale],
           firstDoc: localeFirstDoc,
         },
       })

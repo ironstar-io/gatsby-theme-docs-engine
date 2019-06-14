@@ -73,8 +73,6 @@ const convertToTree = ({ edges, locale, version }) => {
     documentationOrder,
   })
 
-  // console.log({ unorderedTree })
-
   return orderTree({ unorderedTree, documentationOrder })
 }
 
@@ -84,10 +82,6 @@ const buildLocaleTrees = ({ basePageData }) => {
       allMdx: { edges },
     },
   } = basePageData
-
-  const localeList = edges.map(
-    ({ node: { fileAbsolutePath } }) => splitLocaleVersion(fileAbsolutePath)[0]
-  )
 
   const localeSplitEdges = edges.reduce((acc, curr) => {
     const {
