@@ -5,7 +5,7 @@ title: Content
 
 # Content
 
-A TypeScript type definition for this property can be found [here](https://github.com/ironstar-io/bantan-docs-engine/blob/master/src/types.ts)
+A TypeScript type definition for this property can be found [here](https://github.com/ironstar-io/gatsby-theme-docs-engine/blob/master/src/types.ts)
 
 ## Defaults
 
@@ -34,7 +34,7 @@ A TypeScript type definition for this property can be found [here](https://githu
       },
       links: [
         { internalRef: '/docs/introduction', label: 'Docs' },
-        { externalRef: 'https://github.com/ironstar-io/bantan-docs-engine', label: 'GitHub' },
+        { externalRef: 'https://github.com/ironstar-io/gatsby-theme-docs-engine', label: 'GitHub' },
       ],
     },
     footer: {

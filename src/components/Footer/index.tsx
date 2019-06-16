@@ -107,7 +107,16 @@ const Footer: React.SFC<{}> = () => (
               {footer.copyright && (
                 <div className="copyright">{footer.copyright}</div>
               )}
-              <div className="powered-by">Built with <a href="https://github.com/ironstar-io/bantan-docs-engine" target="_blank">Bantan Docs Engine</a> by <a href="https://ironstar.io">Ironstar</a></div>
+              <div className="powered-by">
+                Built with{' '}
+                <a
+                  href="https://github.com/ironstar-io/gatsby-theme-docs-engine"
+                  target="_blank"
+                >
+                  Bantan Docs Engine
+                </a>{' '}
+                by <a href="https://ironstar.io">Ironstar</a>
+              </div>
             </div>
           </div>
         </footer>

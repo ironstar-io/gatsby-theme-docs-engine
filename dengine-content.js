@@ -24,7 +24,8 @@ const dengineContent = {
       links: [
         { internalRef: '/docs/introduction', label: 'Docs' },
         {
-          externalRef: 'https://github.com/ironstar-io/bantan-docs-engine',
+          externalRef:
+            'https://github.com/ironstar-io/gatsby-theme-docs-engine',
           label: 'GitHub',
         },
       ],

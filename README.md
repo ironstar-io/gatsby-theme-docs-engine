@@ -2,7 +2,7 @@
 
 This is a [Gatbsy Theme](https://www.gatsbyjs.org/docs/themes/) for technical documentation websites.
 
-See [Bantan Docs Engine Reference Guide](https://bantan-docs-engine.ironstar.io) for more detailed information.
+See [Bantan Docs Engine Reference Guide](https://gatsby-theme-docs-engine.ironstar.io) for more detailed information.
 
 ## Dependencies
 

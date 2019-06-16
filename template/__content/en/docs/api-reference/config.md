@@ -5,7 +5,7 @@ title: Config
 
 # Config
 
-A TypeScript type definition for this property can be found [here](https://github.com/ironstar-io/bantan-docs-engine/blob/master/src/types.ts)
+A TypeScript type definition for this property can be found [here](https://github.com/ironstar-io/gatsby-theme-docs-engine/blob/master/src/types.ts)
 
 ## Defaults
 
@@ -15,7 +15,7 @@ A TypeScript type definition for this property can be found [here](https://githu
   url: "https://bantan-docs.ironstar.io", // Your website URL
   defaultLocale: "en",
   repository: {
-    url: "https://github.com/ironstar-io/bantan-docs-engine",
+    url: "https://github.com/ironstar-io/gatsby-theme-docs-engine",
     branch: "master"
   },
   feedback: {

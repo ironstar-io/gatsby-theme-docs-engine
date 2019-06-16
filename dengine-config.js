@@ -3,7 +3,7 @@ const dengineConfig = {
   url: 'https://bantan-docs.ironstar.io', // Your website URL
   defaultLocale: 'en',
   repository: {
-    url: 'https://github.com/ironstar-io/bantan-docs-engine',
+    url: 'https://github.com/ironstar-io/gatsby-theme-docs-engine',
     branch: 'master',
   },
   feedback: {
