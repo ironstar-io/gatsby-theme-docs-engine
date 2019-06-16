@@ -120,14 +120,14 @@ _Array{}_
 
 Refers to the links to the right hand side of the header
 
-_internalRef or externalRef_
+**internalRef or externalRef**
 
 _string_
 
 One of these is required, internalRef utilises the gatsby link component for snappy route changes, externalLink using
 a standard HTML anchor element
 
-_label_
+**label**
 
 _string_
 
@@ -167,14 +167,14 @@ _Array{}_
 
 Refers to the policy links to the right hand side of the footer
 
-_internalRef or externalRef_
+**internalRef or externalRef**
 
 _string_
 
 One of these is required, internalRef utilises the gatsby link component for snappy route changes, externalLink using
 a standard HTML anchor element
 
-_label_
+**label**
 
 _string_
 
@@ -186,13 +186,13 @@ _Array{}_
 
 Refers to the social links at the bottom of the footer
 
-_url_
+**url**
 
 _string_
 
 The external URL to link to for your social media account
 
-_name_
+**name**
 
 _string_
 
