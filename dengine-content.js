@@ -23,7 +23,10 @@ const dengineContent = {
       },
       links: [
         { internalRef: '/docs/introduction', label: 'Docs' },
-        { externalRef: 'https://github.com/ironstar-io', label: 'GitHub' },
+        {
+          externalRef: 'https://github.com/ironstar-io/bantan-docs-engine',
+          label: 'GitHub',
+        },
       ],
     },
     footer: {
@@ -33,10 +36,9 @@ const dengineContent = {
         { label: 'Tokaido', url: 'https://tokaido.io' },
       ],
       phone: '+61 455 555 555',
-      email: 'hello@ironstar.io',
+      email: 'hello@documentation.io',
       // HTML OK here
-      addressBlock:
-        'Level 2, <br />Riverside Quay 1 <br />Southbank Boulevard <br />Southbank VIC 3006',
+      addressBlock: 'Level 1, <br />123 Documentation St<br />Doctown VIC 3000',
       socials: [
         { label: 'GitHub', url: 'http://github.com/ironstar-io' },
         {
@@ -48,11 +50,11 @@ const dengineContent = {
       policy: [
         {
           name: 'Privacy',
-          externalRef: 'https://ironstar.io/privacy',
+          externalRef: 'https://example.io/privacy',
         },
         {
           name: 'Terms & Conditions',
-          externalRef: 'https://ironstar.io/terms-conditions',
+          externalRef: 'https://example.io/terms-conditions',
         },
       ],
       // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
