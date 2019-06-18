@@ -1,6 +1,7 @@
 import React from 'react'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 import RootLayout from '../../layout/Root'
+import SearchBox from '../../components/SearchBox'
 import SidebarContents from '../../components/SidebarContents'
 import TableOfContents from '../../components/TableOfContents'
 import Feedback from '../../components/Feedback'
@@ -71,6 +72,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
       locale={locale}
       version={version}
     >
+      <SearchBox></SearchBox>
       <div className="documentation-page main-wrapper">
         <SidebarContents tree={sidebarTree} parent={parent} />
 
@@ -96,9 +98,7 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
             <div className="pr-warning">
               Notice something wrong?{' '}
               <a
-                href={`${repository.url}/edit/${
-                  repository.branch
-                }${relativePath}`}
+                href={`${repository.url}/edit/${repository.branch}${relativePath}`}
                 rel="noopener noreferrer"
                 target="_blank"
               >

@@ -1,8 +1,5 @@
-module.exports = {
-  siteMetadata: {
-    title: 'Gatsby Ant-Design Documentation Starter',
-  },
-  plugins: [
+module.exports = (themeOptions = {}) => {
+  const plugins = [
     'gatsby-plugin-typescript',
     'gatsby-plugin-sass',
     'gatsby-plugin-react-helmet',
@@ -106,7 +103,32 @@ module.exports = {
     // To learn more, visit: https://gatsby.app/offline
     // 'gatsby-plugin-offline',
     `gatsby-plugin-meta-redirect`,
-  ],
-  /// this must match the path your webpage is displayed from
-  pathPrefix: '/',
+  ]
+
+  if (
+    themeOptions.dengineConfig &&
+    themeOptions.dengineConfig.algoliaDocSearch &&
+    themeOptions.dengineConfig.algoliaDocSearch.enabled === true
+  ) {
+    plugins.push({
+      resolve: `gatsby-plugin-algolia-docsearch`,
+      options: {
+        apiKey: themeOptions.dengineConfig.algoliaDocSearch.apiKey,
+        indexName: themeOptions.dengineConfig.algoliaDocSearch.indexName,
+        inputSelector:
+          themeOptions.dengineConfig.algoliaDocSearch.inputSelector ||
+          '#algolia-docsearch-input',
+        debug: themeOptions.dengineConfig.algoliaDocSearch.debug || false,
+      },
+    })
+  }
+
+  return {
+    siteMetadata: {
+      title: 'Gatsby Ant-Design Documentation Starter',
+    },
+    /// this must match the path your webpage is displayed from
+    pathPrefix: '/',
+    plugins,
+  }
 }

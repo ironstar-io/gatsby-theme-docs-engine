@@ -10,6 +10,13 @@ export interface DengineConfig {
     show: boolean
     apiPath: string
   }
+  algoliaDocSearch: {
+    enabled: boolean
+    inputSelector: string
+    apiKey: string
+    indexName: string
+    debug: boolean
+  }
   apiUrl: string
   favicon: string
   latestVersion: string

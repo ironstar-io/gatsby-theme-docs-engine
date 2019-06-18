@@ -10,6 +10,9 @@ const dengineConfig = {
     show: false,
     apiPath: '/v1/feedback/documentation',
   },
+  algoliaDocSearch: {
+    enabled: false,
+  },
   apiUrl: 'https://api.xxxxxx.io',
   redirectIndex: true,
   favicon: 'img/favicon.ico',
