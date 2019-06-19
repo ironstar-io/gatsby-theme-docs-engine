@@ -72,7 +72,11 @@ const DocumentationPageTemplate: React.SFC<DocumentationPageTemplateProps> = ({
       locale={locale}
       version={version}
     >
-      <SearchBox></SearchBox>
+      {dengineConfig.algoliaDocSearch &&
+        dengineConfig.algoliaDocSearch.enabled === true && (
+          <SearchBox></SearchBox>
+        )}
+
       <div className="documentation-page main-wrapper">
         <SidebarContents tree={sidebarTree} parent={parent} />
 
