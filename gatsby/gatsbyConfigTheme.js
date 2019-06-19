@@ -19,6 +19,15 @@ module.exports = (themeOptions = {}) => {
     })
   }
 
+  if (themeOptions.dengineConfig && themeOptions.dengineConfig.favicon) {
+    plugins.push({
+      resolve: `gatsby-plugin-favicon`,
+      options: {
+        logo: require.resolve(`${__dirname}/../${favicon}`),
+      },
+    })
+  }
+
   return {
     siteMetadata,
     pathPrefix,

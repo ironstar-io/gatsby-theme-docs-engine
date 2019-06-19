@@ -15,6 +15,7 @@
     "gatsby-mdx": "0.6.3",
     "gatsby-plugin-algolia-docsearch": "^1.0.5",
     "gatsby-plugin-compile-es6-packages": "^1.1.0",
+    "gatsby-plugin-favicon": "^3.1.6",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-manifest": "2.1.1",
     "gatsby-plugin-meta-redirect": "^1.1.1",
