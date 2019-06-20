@@ -31,7 +31,7 @@ module.exports = {
           },
           apiUrl: 'https://api.xxxxxx.io',
           redirectIndex: true,
-          favicon: 'img/favicon.ico',
+          favicon: '',
           latestVersion: '0.1.7',
         },
         dengineContent: {
@@ -113,7 +113,9 @@ Should the a splash page be shown at the root index level of the site, or should
 
 _string_
 
-Path to your favicon file in `/static`
+Relative path to your favicon file, including `./`. For example: `./static/favicon.png`. This will default to no favicon.
+
+Note that the build will fail if the file specified cannot be found.
 
 ### latestVersion
 

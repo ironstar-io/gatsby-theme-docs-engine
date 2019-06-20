@@ -15,7 +15,7 @@ const dengineConfig = {
   },
   apiUrl: 'https://api.xxxxxx.io',
   redirectIndex: true,
-  favicon: 'img/favicon.ico',
+  favicon: '',
   latestVersion: '0.1.7',
 }
 

@@ -23,7 +23,7 @@ module.exports = (themeOptions = {}) => {
     plugins.push({
       resolve: `gatsby-plugin-favicon`,
       options: {
-        logo: require.resolve(`${__dirname}/../${favicon}`),
+        logo: themeOptions.dengineConfig.favicon,
       },
     })
   }
