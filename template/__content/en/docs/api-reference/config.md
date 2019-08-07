@@ -101,7 +101,7 @@ _string_
 
 The root URL for your API, not including a trailing `/`
 
-Currently this is only used for the feedback API POST, but mayb ben extended in the library for more uses in the future, or with your own custom components.
+Currently this is only used for the feedback API POST, but maybe ben extended in the library for more uses in the future, or with your own custom components.
 
 ### redirectIndex
 
